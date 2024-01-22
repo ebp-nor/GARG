@@ -1,64 +1,45 @@
 # GARG
 
 Welcome to GARG **Genealogies and Ancestral Recombination Graphics**, a EBP-Nor workshop.
-
-
-Brief workshop description (see below for a day-by-day description)
-```
+<br>
+## Brief workshop description (see below for a day-by-day description)
 This is a comprehensive, 3-day program designed to introduce participants to the fascinating world of how recombination events shape genomes. This hands-on workshop will focus on utilizing the tskit environment, a powerful tool for simulating and analyzing genomic data (whole-genome resequencing data), to explore and understand complex inheritance patterns within populations.
-```
+<br>
 
-Learning outcomes and competence
-```
+## Learning outcomes and competence
 By the end of this 3-day workshop, participants will have gained valuable skills and knowledge in working with Ancestral Recombination Graphics using the tskit environment. They will be equipped to analyze, simulate, and interpret ARGs, contributing to their understanding of genetic ancestry and recombination events within populations.
-```
+<br>
 
-Prerequisites
-```
+## Prerequisites
 Familiarity with basic genetic concepts (alleles, mutations, genetic variation, etc.).
 Basic knowledge of Python programming (though not mandatory, it will be helpful).
 Participants are required to bring their laptops.
-```
+<br>
 
-Dates
-```
+## Dates
 17-21 August 2024
-```
 
-Location of the workshop. [Here's the location on Googlemaps](https://www.google.com/maps/place/Storgata+43,+1440+Dr%C3%B8bak,+Norway/@59.6587149,10.6298365,20.64z/data=!4m9!1m2!2m1!1stollboden!3m5!1s0x46414424a65fcd75:0x7a9de006e9bd1221!8m2!3d59.6587603!4d10.6301111!16s%2Fg%2F11c26l0m8t?entry=ttu)
-```
+## Location of the workshop. [Here's the location on Googlemaps](https://www.google.com/maps/place/Storgata+43,+1440+Dr%C3%B8bak,+Norway/@59.6587149,10.6298365,20.64z/data=!4m9!1m2!2m1!1stollboden!3m5!1s0x46414424a65fcd75:0x7a9de006e9bd1221!8m2!3d59.6587603!4d10.6301111!16s%2Fg%2F11c26l0m8t?entry=ttu)
 Drøbak research Station (Tollboden), Storgata 43, 1440 Drøbak, Norway.
-```
 
-Travel tips
-```
+## Travel tips
 Participants should arrive by their own means as we do not cover travel. If you arrive via Oslo, there is a public bus (number 500) that leaves from nearby Oslo S (central station) and takes about 40 minutes - 1 hour to reach Drøbak. This bus runs every hour. You can go to http://www.ruter.no, and set: From 'Oslo S', To 'Drøbak'. Google maps will also work. To get a ticket you need to download the 'Ruter app' on Playstore or the AppleStore.
-```
 
-Fees
-```
-This workshop is completely free, as it is sponsored by NORBIS and EBP-Nor. You only need to cover for your traveling. You will be hosted in the research station.
+##  Fees
+This workshop is completely free, being sponsored by NORBIS and EBP-Nor. You only need to cover for your traveling. You will be hosted in the research station.
 We have a max of 25 participants. We will select applicants based on an application page that will be made available.
 
-```
-
-Logistics (read this!)
-```
+## Logistics **(read this!)**
 We will be in the Tollboden research station - we will eat, sleep, and take classes here. It can feel very intensive but this is a very nice place with a pier where you can fish or swim (bring swimming gear). You will share room with 3-5 people (you can, alternatively, pay your own hotel room). You'll be given a towel and bedsheets (you'll make your own bed).
-
 We will make a list of participants responsible for breakfast, lunch, and dinner. You are expected to contribute by setting up the table for breakfast and lunch and cooking dinner. We will have the support of the caretaker in buying food in the local supermarket.
-```
 
-Invited lecturers and organizers
-```
+## Invited lecturers and organizers
 Dr. Yan Wong (Oxford U, UK)
 Dr. Mark Ravinet (UiO, Norway)
 Dr. Per Unneberg (SciLab Uppsala, Sweden)
 Gabriel David (Uppsala, Sweden)
-
 Dr. José Cerca (UiO, Norway)
 Dr. Ole K. Tørresen (UiO, Norway)
-```
 
 Workshop program
 Day 0 (August 17th)
