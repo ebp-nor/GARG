@@ -6,6 +6,8 @@ Welcome to GARG **Genealogies and Ancestral Recombination Graphics**, a EBP-Nor/
 This is a comprehensive, 3-day program designed to introduce participants to the fascinating world of how recombination events shape genomes. This hands-on workshop will focus on utilizing the tskit environment, a powerful tool for simulating and analyzing genomic data (whole-genome resequencing data), to explore and understand complex inheritance patterns within populations.
 <br>
 
+## [If you are interested, sign up here by May 31st.](https://docs.google.com/forms/d/e/1FAIpQLSfAu-ifBV9xI2M4Qed1v43bgOs8tWUizAI1OltMdslV-XWvGw/viewform?usp=sf_link)
+
 ## Learning outcomes and competence
 By the end of this 3-day workshop, participants will have gained valuable skills and knowledge in working with Ancestral Recombination Graphics using the tskit environment. They will be equipped to analyze, simulate, and interpret ARGs, contributing to their understanding of genetic ancestry and recombination events within populations.
 <br>
@@ -39,10 +41,6 @@ Dr. Per Unneberg (SciLab Uppsala, Sweden)
 Gabriel David (Uppsala, Sweden)
 Dr. José Cerca (UiO, Norway)
 Dr. Ole K. Tørresen (UiO, Norway)
-
-## Signing up
-If you are interested, sign up here by May 31st.
-
 
 ## Workshop program
 Day 0 (August 17th)
