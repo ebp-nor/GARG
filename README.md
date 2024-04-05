@@ -26,8 +26,7 @@ Drøbak research Station (Tollboden), Storgata 43, 1440 Drøbak, Norway.
 Participants should arrive by their own means as we do not cover travel. If you arrive via Oslo, there is a public bus (number 500) that leaves from nearby Oslo S (central station) and takes about 40 minutes - 1 hour to reach Drøbak. This bus runs every hour. You can go to http://www.ruter.no, and set: From 'Oslo S', To 'Drøbak'. Google maps will also work. To get a ticket you need to download the 'Ruter app' on Playstore or the AppleStore.
 
 ##  Fees
-This workshop is completely free, being sponsored by NORBIS and EBP-Nor. You only need to cover for your traveling. You will be hosted in the research station.
-We have a max of 25 participants. We will select applicants based on an application page that will be made available.
+This workshop is completely free, being sponsored by NORBIS and EBP-Nor. This means we will cover overnighting and food expenses. You only need to cover for your traveling. You will be hosted in the research station, and you will share room (we have double rooms and rooms for 4 people). We have a max of 25 participants. We will select applicants based on an application page that will be made available.
 
 ## Logistics **(read this!)**
 We will be in the Tollboden research station - we will eat, sleep, and take classes here. It can feel very intensive but this is a very nice place with a pier where you can fish or swim (bring swimming gear). You will share room with 3-5 people (you can, alternatively, pay your own hotel room). You'll be given a towel and bedsheets (you'll make your own bed).
@@ -41,7 +40,11 @@ Gabriel David (Uppsala, Sweden)
 Dr. José Cerca (UiO, Norway)
 Dr. Ole K. Tørresen (UiO, Norway)
 
-Workshop program
+## Signing up
+If you are interested, sign up here by May 31st.
+
+
+## Workshop program
 Day 0 (August 17th)
 
 ```
