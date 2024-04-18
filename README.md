@@ -1,6 +1,6 @@
 # GARG
 
-Welcome to GARG **Genealogies and Ancestral Recombination Graphics**, a EBP-Nor/Norbis workshop.
+Welcome to GARG **Genealogies and Ancestral Recombination Graphs**, a EBP-Nor/Norbis workshop.
 <br>
 ## Brief workshop description (see below for a day-by-day description)
 This is a comprehensive, 3-day program designed to introduce participants to the fascinating world of how recombination events shape genomes. This hands-on workshop will focus on utilizing the tskit environment, a powerful tool for simulating and analyzing genomic data (whole-genome resequencing data), to explore and understand complex inheritance patterns within populations.
