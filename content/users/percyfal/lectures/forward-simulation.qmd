@@ -1,0 +1,37 @@
+---
+title: Simulation with SLiM
+subtitle: Forward simulations
+author: Per Unneberg
+date: "19 August, 2024"
+format:
+  nbis-course-revealjs:
+    footer: GARG - Forward simulations
+---
+
+## Setup  {.unnumbered .unlisted visibility="hidden"}
+
+{{< include _knitr.qmd >}}
+
+{{< include _rlibs.qmd >}}
+
+```{r libs }
+#| echo: false
+#| eval: true
+#| cache: false
+library(viridisLite)
+library(gganimate)
+library(patchwork)
+library(expm)
+library(gridExtra)
+library(igraph)
+library(ggraph)
+library(tidygraph)
+```
+
+# Background
+
+## Backward vs forward
+
+# SLiM
+
+## Overview

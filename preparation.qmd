@@ -1,0 +1,118 @@
+---
+title: Course preparation
+toc: false
+date: last-modified
+execute:
+  cache: false
+nocite: |
+  @lewanski_EraARGIntroduction_2024, @wohns_UnifiedGenealogyModern_,
+  @stankowski_GeneticBasisRecent_2024
+---
+
+```{r }
+#| label: r-setup
+#| echo: false
+#| eval: true
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(kableExtra)
+library(formattable)
+```
+
+## Preparation
+
+In preparation for the workshop, please make sure to work through the
+workbooks listed below. In addition, we recommend you go through the
+suggested readings.
+
+### Workbooks
+
+The workbooks can be run either as a
+[JupyterLite](https://jupyterlite.readthedocs.io/en/stable/) instance
+or in [Google Colab](https://colab.research.google.com/). Keep in mind
+that you need a Google account to run the Colab exercies. Run the
+HOWTO first (it takes 5-10 minutes), preferably in both engines, to
+make sure everything works as expected and you understand the format
+of the workbooks.
+
+```{r }
+#| label: r-list-workbooks
+#| echo: false
+#| eval: true
+#| results: asis
+# host <- "ebp-nor"
+host <- "percyfal"
+server <- "jlite/notebooks/index.html?path="
+colabhost <- paste0(
+  "https://colab.research.google.com/github/",
+  host, "/GARG/blob/main/jlite/content/"
+)
+workbooks <- data.frame(
+  Topic = c(
+    "HOWTO - introduction to exercises and JupyterLite",
+    "An introduction to Python"
+  ),
+  link_lab_jlite = c(
+    "HOWTO.ipynb",
+    "python_intro.ipynb"
+  ),
+  link_lab_colab = c(
+    "HOWTO.ipynb",
+    "python_intro.ipynb"
+  )
+)
+
+workbooks_md <- workbooks %>%
+  # create links
+  dplyr::mutate(link_lab_jlite = ifelse(
+    is.na(link_lab_jlite), NA,
+    gsub(
+      ",", "",
+      gsub(
+        "([^,]+)",
+        paste0(
+          " **[{{< fa brands firefox-browser >}}](",
+          server, "\\1)**"
+        ),
+        link_lab_jlite
+      )
+    )
+  )) %>%
+  dplyr::mutate(link_lab_colab = ifelse(
+    is.na(link_lab_colab), NA,
+    gsub(
+      ",", "",
+      gsub(
+        "([^,]+)",
+        paste0(
+          " **[{{< fa brands google >}}](",
+          colabhost, "\\1)**"
+        ),
+        link_lab_colab
+      )
+    )
+  )) ##  %>%
+## dplyr::mutate(Topic = ifelse(is.na(link_lab_jlite),
+##   Topic,
+##   paste(Topic, link_lab_jlite)
+## )) %>%
+## dplyr::mutate(Topic = ifelse(is.na(link_lab_colab),
+##   Topic,
+##   paste(Topic, link_lab_colab)
+## ))
+
+cat(
+  print(kable(workbooks_md,
+    format = "pipe", escape = FALSE,
+    row.names = FALSE,
+    col.names = c("Topic", "JupyterLite", "Google Colab")
+  )),
+  "\n\n: {.hover .condensed .responsive tbl-colwidths=\"[60, 20, 20]\"}\n\n"
+)
+```
+
+### Suggested readings
+
+::: {#refs}
+:::

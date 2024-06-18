@@ -1,0 +1,308 @@
+HOWTO:
+  distro:
+    - question: >-
+        What is the name of the Python distribution that runs in the
+        browser?
+      type: many_choice
+      answers:
+        - answer: PythonBrowser
+          correct: false
+          feedback: >-
+            Hint: reread the text!
+        - answer: Pyodide
+          correct: true
+  day:
+    - question: What calendar day is it?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          feedback: correct
+        - type: range
+          correct: false
+          range: [0, 31]
+          feedback: >-
+              Try again (hint: look at your calendar :-))
+
+
+CoalescentHandson:
+  tmrca:
+    - question: >-
+        Calculate the expected $T_{MRCA}$ for a coalescent tree with
+        $n=10$ samples. How much would an 11th sample add to the
+        $T_{MRCA}$? Answer in terms of relative increase (in percent)
+        to the $T_{MRCA}$ for 10 samples. What implication does this
+        have for the effect of sampling more sequences?
+      type: numeric
+      answers:
+        - type: range
+          correct: true
+          range: [1.009, 1.011]
+          feedback: >-
+            Correct! Let $H_{10}=2(1-1/10)$ and $H_{11}=2(1-1/11)$ be
+            the expected $T_{MRCA}$ of the tree with 10 samples and 11
+            samples, respectively. Then the relative increase is
+            $(H_{11} - H_{10})/H_{10}$.
+
+            Adding more samples does not add substantially to the
+            $T_{MRCA}$ when, say, $n>10$, but rather adds coalescent
+            event close to the bottom of the tree. It is more
+            important to add sites than samples to study genetic
+            variation.
+        - type: default
+          feedback: >-
+            Try again! Hint: calculate the $T_{MRCA}$ for both sample
+            sizes and look at the relative ratio .
+  exponential_draw:
+    - question: >-
+        The second time you draw from the exponential distribution, what
+        is the value of the parameter lambda?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          feedback: >-
+            Correct. The number of chromosomes is 3, which gives us
+            lambda = 3 * (3 - 1) / 2 = 3
+          value: 3
+        - type: default
+          feedback: >-
+            Try again (hint: how many remaining chromosomes do you have?)
+    - question: >-
+        The third time you draw from the exponential distribution, what
+        is the value of the parameter lambda?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          feedback: >-
+            Correct. The number of chromosomes is 2, which gives us
+            lambda = 2 * (2 - 1) / 2 = 1
+          value: 1
+        - type: default
+          feedback: >-
+            Try again (hint: how many remaining chromosomes do you have?)
+  total_branch_length:
+    - question: >-
+        Given our sample size of 4 chromosomes, what is the expected
+        total branch length of a coalescent tree, when time is
+        expressed in units of 2N generations? Express your answer as a
+        rational number. Compare the value to your simulated result
+        and comment on the observation.
+      type: numeric
+      answers:
+        - type: range
+          correct: true
+          range: [1.8333332, 1.8333334]
+          feedback: >-
+            Correct. The total branch length is calculated as
+            $2(1/(2-1) + 1/(3-1) + 1/(4-1)) = 2(1 + 1/2 + 1/3) = 11/6$
+        - type: default
+          feedback: Try again.
+  theta_S5:
+    - question: >-
+        Given $T_{total}=3$, what $\theta$ would give $S=5$?
+      type: numeric
+      answers:
+        - type: range
+          correct: true
+          range: [3.333332, 3.333334]
+          feedback: >-
+            Correct. $\theta$ can be expressed as
+            $\theta=\frac{2S}{T}=\frac{2*5}{3}$.
+        - type: default
+          feedback: >-
+            Try again. Equate $S$ with the Poisson mean and solve for
+            $\theta$.
+
+  sample_sequences:
+    - question: >-
+        How many segregating sites are there?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 6
+          feedback: >-
+            Correct! Each rectangle corresponds to a mutation, and
+            there are six rectangles in total.
+        - type: default
+          feedback: >-
+            Try again! Hint: each rectangle corresponds to a
+            segregating site (mutation).
+    - question: >-
+        Assuming the ancestral state is denoted <tt>0</tt> and the derived
+        state <tt>1</tt>, what is the sequence of sample 1?
+      type: many_choice
+      answers:
+        - answer: "110000"
+          correct: true
+          feedback: >-
+            Correct! There are two mutations on the branch from sample
+            1 to its ancestor. Since there is no explicit ordering of
+            mutations, any sequence with two derived states
+            (two 1's) is correct.
+        - answer: "001100"
+          correct: true
+          feedback: >-
+            Correct! There are two mutations on the branch from sample
+            1 to its ancestor. Since there is no explicit ordering of
+            mutations, any sequence with two derived states
+            (<tt>1</tt>) is correct.
+        - answer: "1101"
+          correct: false
+        - answer: "000011"
+          correct: true
+          feedback: >-
+            Correct! There are two mutations on the branch from sample
+            1 to its ancestor. Since there is no explicit ordering of
+            mutations, any sequence with two derived states
+            (<tt>1</tt>) is correct.
+    - question: >-
+        Same for sample 0, but now you order mutations from left to right?
+      type: many_choice
+      answers:
+        - answer: "001100"
+          correct: true
+          feedback: >-
+            Correct! There are 0 mutations on the branch from sample 0
+            to its ancestor 5, followed by two on the branch from 5 to
+            the MRCA. Since we (arbitrarily) order mutations from left
+            to right, the sequence is 001100.
+        - answer: "110011"
+          correct: false
+        - answer: "0010"
+          correct: false
+        - answer: "000011"
+          correct: false
+    - question: >-
+        How many mutations are shared between samples 0 and 2?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 2
+          feedback: >-
+            Correct! The internal branch from 5 to 6 is common to
+            samples 0 and 2 and carries two mutations.
+        - type: default
+          feedback: >-
+            Try again! Hint: find branches that are common to the
+            samples and sum the mutations on those branches.
+
+  nodes_in_tree:
+    - question: >-
+        How many nodes are needed to represent a tree with $n=10$
+        samples?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 19
+          feedback: >-
+            Correct! The number of nodes is equal to $2n-1$.
+        - type: default
+          feedback: >-
+            Try again. Hint: calculate the number of nodes for some
+            values of $n$, say 2, 3, 4, and see if you can detect a
+            pattern.
+  edges_in_tree:
+    - question: >-
+        How many edges are needed to represent a tree with $n=10$
+        samples?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 18
+          feedback: >-
+            Correct! The number of edges is equal to the number of
+            nodes minus 1, or $2n-2$.
+        - type: default
+          feedback: >-
+            Try again. Hint: calculate the number of edges for some
+            values of $n$, say 2, 3, 4, and see if you can detect a
+            pattern.
+MsprimeSimulations:
+  tskit_tables:
+    - question: >-
+        What is the age of the MRCA? Answer with three decimal places.
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 3.835
+          feedback: >-
+            Correct! You can get the value by typing
+            <tt>max(ts.nodes_time)</tt>.
+        - type: default
+          feedback: >-
+            Try again! Hint: browse through the functions and look for
+            a property that provides access to the node times.
+  recombination:
+    - question: >-
+        At what position has the second recombination taken place?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 9138
+          feedback: >-
+            Correct!
+        - type: default
+          feedback: >-
+            Try again! Hint: look at the coordinates. You could also
+            list the tree sequence breakpoints with
+            <tt>list(ts.breakpoints())</tt>
+  large_ancestry:
+    - question: >-
+        How many trees did the simulation produce?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 8333
+          feedback: >-
+            Correct!
+        - type: default
+          feedback: >-
+            Try again! Hint: don't forget to set the effective
+            population size to 20,000!
+  mutation_id:
+    - question: >-
+        Locate the ID of the site with two (recurrent) mutations.
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 3
+          feedback: Correct!
+        - type:
+          feedback: >-
+            Try again! Hint: you can access the tables via the
+            <tt>mts_small.tables</tt> property.
+  large_mutation:
+    - question: >-
+        How many variable sites are in the tree sequence?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 8805
+          feedback: Correct!
+        - type: default
+          feedback: >-
+            Try again!
+    - question: >-
+        What is the size in megabytes (MiB) of the tree sequence file?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 7.6
+          feedback: Correct!
+        - type: default
+          feedback: >-
+            Try again! Hint: print the ts object and look for Total
+            Size.
+

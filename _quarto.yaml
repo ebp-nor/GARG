@@ -1,0 +1,36 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - preparation.qmd
+    - schedule.qmd
+    - contents.qmd
+  pre-render:
+    - scripts/jlite.sh
+
+website:
+  title: Genealogies and Ancestral Recombination Graphs
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - preparation.qmd
+      - schedule.qmd
+      - contents.qmd
+
+format:
+  html:
+    theme: assets/style.scss
+    toc: true
+
+from: markdown+emoji
+bibliography: assets/bibliography.bib
+execute:
+  echo: true
+  warning: false
+  cache: true
+  include: true
+  autodep: true
+  eval: true
+  error: true
+  freeze: auto

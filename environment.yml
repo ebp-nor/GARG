@@ -1,0 +1,16 @@
+name: garg
+channels:
+  - conda-forge
+  - bioconda
+  - default
+dependencies:
+  - r-dplyr
+  - r-formattable
+  - r-googledrive
+  - r-googlesheets4
+  - r-kableextra
+  - r-lubridate
+  - r-readxl
+  - r-rmarkdown
+  - r-tidyverse
+  - r-toastui
