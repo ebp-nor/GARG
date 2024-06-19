@@ -16,12 +16,16 @@ library(toastui)
 ```
 
 ```{r }
-#| label: r-list-workbooks
+#| label: r-ci-setup
 #| echo: false
 #| eval: true
 #| cache: false
-# host <- "ebp-nor"
-host <- "percyfal"
+ci <- Sys.getenv("CI", unset = "false")
+if (ci == "false") {
+  host <- "ebp-nor"
+} else {
+  host <- Sys.getenv("GITHUB_ACTOR")
+}
 server <- "jlite/notebooks/index.html?path="
 colabhost <- paste0(
   "https://colab.research.google.com/github/",
