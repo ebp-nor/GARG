@@ -5,7 +5,6 @@ sidebar: false
 format:
   html:
     number-sections: false
-    theme: style.css
 execute:
   cache: false
   warning: false
