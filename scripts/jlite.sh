@@ -11,4 +11,5 @@ cd "${ROOT_PATH}/jlite" || exit 1
 jupyter lite build --contents content --output-dir ../_site/jlite
 
 rsync -av "${ROOT_PATH}/jlite/content/workshop.py" "${ROOT_PATH}/_site/jlite/notebooks/workshop.py"
-rsync -av "${ROOT_PATH}/jlite/content/model" "${ROOT_PATH}/_site/jlite/notebooks/model"
+rsync -av "${ROOT_PATH}/jlite/content/model" "${ROOT_PATH}/_site/jlite/notebooks/"
+rsync -av "${ROOT_PATH}/jlite/content/img" "${ROOT_PATH}/_site/jlite/notebooks/"
