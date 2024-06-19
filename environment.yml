@@ -4,6 +4,7 @@ channels:
   - bioconda
   - default
 dependencies:
+  - r-codetools
   - r-dplyr
   - r-formattable
   - r-googledrive
