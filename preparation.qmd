@@ -6,19 +6,10 @@ execute:
   cache: false
 nocite: |
   @lewanski_EraARGIntroduction_2024, @wohns_UnifiedGenealogyModern_,
-  @stankowski_GeneticBasisRecent_2024
+  @stankowski_GeneticBasisRecent_2024, @_WhatTreeSequence_2024_
 ---
 
-```{r }
-#| label: r-setup
-#| echo: false
-#| eval: true
-library(readxl)
-library(dplyr)
-library(tidyverse)
-library(kableExtra)
-library(formattable)
-```
+{{< include _rinit.qmd >}}
 
 ## Preparation
 
@@ -41,13 +32,6 @@ of the workbooks.
 #| echo: false
 #| eval: true
 #| results: asis
-# host <- "ebp-nor"
-host <- "percyfal"
-server <- "jlite/notebooks/index.html?path="
-colabhost <- paste0(
-  "https://colab.research.google.com/github/",
-  host, "/GARG/blob/main/jlite/content/"
-)
 workbooks <- data.frame(
   Topic = c(
     "HOWTO - introduction to exercises and JupyterLite",
@@ -92,16 +76,7 @@ workbooks_md <- workbooks %>%
         link_lab_colab
       )
     )
-  )) ##  %>%
-## dplyr::mutate(Topic = ifelse(is.na(link_lab_jlite),
-##   Topic,
-##   paste(Topic, link_lab_jlite)
-## )) %>%
-## dplyr::mutate(Topic = ifelse(is.na(link_lab_colab),
-##   Topic,
-##   paste(Topic, link_lab_colab)
-## ))
-
+  ))
 cat(
   print(kable(workbooks_md,
     format = "pipe", escape = FALSE,
