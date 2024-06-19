@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Nunito:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
+
+/*-- scss:defaults --*/
+
+$lime: #a7c947;
+$lime25: #e9f2d1;
+$lime50: #d3e4a3;
+$lime75: #bdd775;
+
+$teal: #045c64;
+$teal25: #c0d6d8;
+$teal50: #82aeb2;
+$teal75: #43858b;
+
+$aqua: #4c979f;
+$aqua25: #d2e5e7;
+$aqua50: #a6cbcf;
+$aqua75: #79b1b7;
+
+$grape: #491f53;
+$grape25: #d2c7d4;
+$grape50: #a48fa9;
+$grape75: #77577e;
+
+$primary: $aqua;
+$secondary: $aqua75;
+$tertiary: $aqua50;
+
+$link-color: #79B1B7;
+$body-color: #1c2833;
+$code-color: #496985;
+$code-block-bg: WhiteSmoke;
+$font-family-sans-serif: 'Nunito', 'Source Sans Pro', 'Helvetica', 'sans-serif' ;
+$font-family-monospace: 'Fira Mono','Ubuntu Mono', 'Lucida Console', 'Courier', 'monospace';
+$font-size-root: 18px;
+$code-font-size: 14px;
+/* major second scale */
+$h1-font-size: 1.802rem;
+$h2-font-size: 1.602rem;
+$h3-font-size: 1.424rem;
+$h4-font-size: 1.266rem;
+$h5-font-size: 1.125rem;
+$h6-font-size: 1rem;
+$code-block-border-color: none;
+$code-font-size: 0.90rem;
+$code-bg: $code-block-bg; /* inline code */
+/*$code-color: ; */
+
+/* site */
+$navbar-bg: $tertiary;
+$footer-bg: white;
+$footer-fg: DimGray;
+
+/*-- scss:rules --*/
+
+.contents-table table {
+  line-height: 1;
+}
+
+.badge,
+.badge-primary {
+    background-color: $primary;
+}
+
+.badge-secondary {
+  background-color: $secondary;
+}
+
+.btn-primary {
+  background-color: $primary;
+  color: whitesmoke;
+}
+
+.btn-primary:hover {
+  background-color: $secondary;
+  color: whitesmoke;
+
+}
+
+.btn-secondary {
+  background-color: $secondary;
+  color: whitesmoke;
+}
+
+.btn-secondary:hover {
+  background-color: $tertiary;
+  color: whitesmoke;
+}
+
+
+/* schedule toastui */
+
+.schedule .cell-output-display {
+  height: 700px;
+  overflow: hidden;
+}
+
+.toastui-calendar-week-view .toastui-calendar-panel:not(.toastui-calendar-time) {
+  overflow-y: hidden !important;
+}
+
+.toastui-calendar-time {
+  height: 610px !important;
+}
+
+.toastui-calendar-timegrid {
+  height: 600px !important;
+  min-height: 600px !important;
+}
+
+.toastui-calendar-event-time .toastui-calendar-event-time-content, .toastui-calendar-event-time .toastui-calendar-travel-time, .toastui-calendar-day-name__name {
+  font-size: 13px !important;
+}
+
+.toastui-calendar-section-button,
+.toastui-calendar-popup-section > .toastui-calendar-detail-item:nth-child(1),
+.toastui-calendar-popup-section > .toastui-calendar-detail-item:nth-child(2) {
+  display: none;
+}
+/*-- scss:mixins --*/
+
+/*-- scss:functions --*/
+
+/*-- scss:uses --*/

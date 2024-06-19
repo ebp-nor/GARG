@@ -1,0 +1,46 @@
+# Environment file for generating slides and exercises
+channels:
+  - conda-forge
+  - bioconda
+  - default
+dependencies:
+  - msprime>=1.2
+  - pip
+  - python>=3.10
+  - r-ape
+  - r-codetools
+  - r-curl
+  - r-devtools
+  - r-dt
+  - r-dygraphs
+  - r-expm
+  - r-fontawesome
+  - r-formatr
+  - r-formattable
+  - r-gganimate
+  - r-ggiraph
+  - r-ggraph
+  - r-ggplot2
+  - r-gifski
+  - r-gplots
+  - r-gsalib
+  - r-highcharter
+  - r-igraph
+  - r-kableextra
+  - r-latex2exp
+  - r-leaflet
+  - r-networkD3
+  - r-magick
+  - r-patchwork
+  - r-pdftools
+  - r-plotly
+  - r-readr
+  - r-readxl
+  - r-reticulate
+  - r-rmarkdown>=2.19
+  - r-tidyr
+  - r-viridis
+  - tskit
+  - tsinfer
+  - pip:
+    - tsdate

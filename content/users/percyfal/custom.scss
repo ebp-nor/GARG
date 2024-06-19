@@ -1,0 +1,37 @@
+/* SCSS custom modifications for NBIS presentations using quarto, revealjs and rmarkdown */
+
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+
+.center {
+    margin: auto;
+}
+
+.green { color: #a7c947; font-weight: bold }
+
+code.tree {
+    line-height: 8px;
+    font-size: 18px;
+}
+
+.reveal code.stree {
+    line-height: 6.6px;
+    font-size: 12px;
+}
+
+code.sstree {
+    line-height: 5.6px;
+    font-size: 10px;
+}
+
+.reveal .container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Optional: For vertical centering */
+    //height: 100vh; /* Optional: To center within the full viewport height */
+}
+
+figure {
+    text-align: center; /* To align the caption within the figure */
+}
