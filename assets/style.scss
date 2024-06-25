@@ -92,7 +92,7 @@ $footer-fg: DimGray;
 /* schedule toastui */
 
 .schedule .cell-output-display {
-  height: 700px;
+  height: 1100px;
   overflow: hidden;
 }
 
@@ -101,16 +101,16 @@ $footer-fg: DimGray;
 }
 
 .toastui-calendar-time {
-  height: 610px !important;
+  height: 1400px !important;
 }
 
 .toastui-calendar-timegrid {
-  height: 600px !important;
-  min-height: 600px !important;
+  height: 1100px !important;
+  min-height: 1100px !important;
 }
 
 .toastui-calendar-event-time .toastui-calendar-event-time-content, .toastui-calendar-event-time .toastui-calendar-travel-time, .toastui-calendar-day-name__name {
-  font-size: 13px !important;
+  font-size: 12px !important;
 }
 
 .toastui-calendar-section-button,
@@ -118,6 +118,7 @@ $footer-fg: DimGray;
 .toastui-calendar-popup-section > .toastui-calendar-detail-item:nth-child(2) {
   display: none;
 }
+
 /*-- scss:mixins --*/
 
 /*-- scss:functions --*/
