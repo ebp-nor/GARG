@@ -1,0 +1,88 @@
+---
+title: "Schedule"
+toc: false
+date: ""
+format:
+  html:
+    toc: false
+    number-sections: false
+    page-layout: full
+execute:
+  cache: false
+  freeze: false
+---
+
+{{< include _rinit.qmd >}}
+
+::: {.callout-note}
+
+The schedule is being updated.
+
+:::
+
+```{r }
+#| label: toastui-calendar
+#| echo: false
+#| eval: true
+fn_rle <- function(x) {
+  r <- rle(x)
+  return(rep(paste(r$values, 1:length(r$values), sep = "-"), times = r$lengths))
+}
+
+dfr <- s %>%
+  # filter(!is.na(type)) %>%
+  mutate(time = as.character(time)) %>%
+  tidyr::fill(date, .direction = "down") %>%
+  mutate(start = lubridate::dmy_hm(paste(.$date, .$time))) %>%
+  mutate(start_time = lubridate::hm(time)) %>%
+  group_by(date) %>%
+  mutate(delta = lead(start_time, default=start_time[length(start_time)]) - start_time) %>%
+  ungroup() %>%
+  tidyr::drop_na(type) %>%
+  mutate(end = start + delta) %>%
+  mutate(grp = paste0(fn_rle(type), "-", fn_rle(title)), .by = date) %>%
+  mutate(body_full = paste(
+    .$body,
+    ifelse(is.na(.$instructor), "",
+      paste0("<br>", .$instructor)
+    )
+  )) %>%
+  group_by(date, grp) %>%
+  summarise(
+    type = type[1], body = body_full[1], title = title[1],
+    start = start[1], end = tail(end, n = 1)
+  ) %>%
+  ungroup() %>%
+  mutate(calendarId = as.character(as.integer(as.factor(type)))) %>%
+  mutate(
+    start = as.character(lubridate::ymd_hms(start)),
+    end = as.character(lubridate::ymd_hms(end))
+  ) %>%
+  dplyr::select(calendarId, title, body, start, end, type) %>%
+  mutate(category = "time")
+
+colors <- data.frame(
+  id = c("1", "2", "3", "4", "5", "6"),
+  name = sort(unique(dfr$type)),
+  color = c(rep("#2c3e50", 6)),
+  backgroundColor =
+
+  c("#fcf3cf", "#a9dfbf", "#fae5d3", "#e8daef", "#e9f2d1",  "#d6eaf8"),
+
+  borderColor =
+
+    c("#f7dc6f", "#7dcea0", "#f0b27a", "#bb8fce", "#a7c947", "#85c1e9")
+)
+rownames(colors) <- colors$id
+
+calendar(dfr,
+  view = "week", navigation = TRUE,
+  defaultDate = as.Date("2024-08-17"), height = 1400
+) %>%
+  cal_week_options(
+    startDayOfWeek = 6, hourStart = 8, hourEnd = 21,
+    eventView = "time", showNowIndicator = TRUE,
+    endDayOfWeek = 4
+  ) %>%
+  cal_props(colors)
+```

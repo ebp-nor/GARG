@@ -1,0 +1,49 @@
+<!-- markdownlint-disable MD041 -->
+
+```{r }
+#| label: r-setup
+#| echo: false
+#| eval: true
+#| cache: false
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(kableExtra)
+library(formattable)
+library(lubridate)
+library(googlesheets4)
+library(toastui)
+```
+
+```{r }
+#| label: r-ci-setup
+#| echo: false
+#| eval: true
+#| cache: false
+ci <- Sys.getenv("CI", unset = "false")
+if (ci == "false") {
+  host <- "ebp-nor"
+} else {
+  host <- Sys.getenv("GITHUB_ACTOR")
+}
+server <- "jlite/notebooks/index.html?path="
+colabhost <- paste0(
+  "https://colab.research.google.com/github/",
+  host, "/GARG/blob/main/jlite/content/"
+)
+drivehost <- "https://drive.google.com/uc?export=copy&id="
+```
+
+```{r }
+#| label: markdown-schedule
+#| echo: false
+#| eval: true
+#| cache: false
+googlesheets4::gs4_deauth()
+url_schedule <- "https://docs.google.com/spreadsheets/d/193_wsHPvEvaMQ583t4t0p2P6eiXMN_It-irhKyiO64U/edit#gid=0"
+s <- googlesheets4::read_sheet(url_schedule, sheet = "schedule-vertical", col_types = "c")
+# remove rows that are completely NA
+s <- s[!apply(s, 1, function(x) all(is.na(x))), ]
+```
+
+<!-- markdownlint-enable MD041 -->

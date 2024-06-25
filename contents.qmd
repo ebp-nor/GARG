@@ -1,0 +1,132 @@
+---
+title: "Contents"
+description: "Course materials including presentations (slides) and practical exercises (labs)"
+toc: false
+date: ""
+sidebar: false
+format:
+  html:
+    number-sections: false
+execute:
+  freeze: false
+filter:
+  - fontawesome
+---
+
+{{< include _rinit.qmd >}}
+
+```{r }
+#| label: r-make-contents
+#| echo: false
+#| eval: true
+#| cache: false
+smkd <- s %>%
+  tidyr::fill(date, .direction = "down") %>%
+  # create links
+  dplyr::mutate(link_lab_jlite = ifelse(
+    is.na(link_lab), NA,
+    gsub(
+      ",", "",
+      gsub(
+        "([^,]+)",
+        paste0(
+          " **[{{< fa brands firefox-browser >}}](",
+          server, "\\1)**"
+        ),
+        link_lab
+      )
+    )
+  )) %>%
+  dplyr::mutate(link_lab_colab = ifelse(
+    is.na(link_lab), NA,
+    gsub(
+      ",", "",
+      gsub(
+        "([^,]+)",
+        paste0(
+          " **[{{< fa brands google >}}](",
+          colabhost, "\\1)**"
+        ),
+        link_lab
+      )
+    )
+  )) %>%
+  dplyr::mutate(link_slide = ifelse(
+    is.na(link_slide), NA,
+    paste0("**[{{< fa file-powerpoint >}}](", link_slide, ")**")
+  )) %>%
+  dplyr::mutate(title = ifelse(is.na(link_slide),
+    title,
+    paste(title, link_slide)
+  )) %>%
+  dplyr::mutate(title = ifelse(is.na(link_lab_jlite),
+    title,
+    paste(title, link_lab_jlite)
+  )) %>%
+  dplyr::mutate(title = ifelse(is.na(link_lab_colab),
+    title,
+    paste(title, link_lab_colab)
+  ))
+```
+
+::: {.callout-note}
+
+The contents are being updated.
+
+:::
+
+:::{.contents-table .column-body-outset}
+
+```{r }
+#| label: r-contents-table-markdown-out
+#| echo: false
+#| eval: true
+#| results: asis
+cnames <- c("Date", "Title", "Topic", "Presenter")
+tab <- smkd %>%
+  dplyr::filter(title != "") %>%
+  dplyr::filter(type %in% c("Talk", "Lab", "Seminar")) %>%
+  dplyr::select(c("date", "title", "body", "instructor")) %>%
+  dplyr::mutate_all(~ ifelse(is.na(.), "", .)) %>%
+  setNames(cnames[1:ncol(.)]) %>%
+  dplyr::distinct()
+
+tabby <- by(tab, tab$Date, function(x) {
+  x
+})
+
+contents <- do.call(
+  "rbind",
+  lapply(names(tabby), function(date) {
+    x <- tabby[[date]][, 2:4]
+    new_row <- tibble::tibble(
+      Title = paste0("[**", date, "**]{.badge .badge-secondary}"),
+      Topic = "",
+      Presenter = ""
+    )
+    x <- rbind(new_row, x)
+    x
+  })
+)
+
+cat(
+  print(kable(contents, format = "pipe", escape = FALSE, row.names = FALSE)),
+  "\n\n: {.hover .condensed .responsive tbl-colwidths=\"[30, 50, 20]\"}\n\n"
+)
+```
+
+:::
+
+<!-- marker legend -->
+<p class="small" style="margin-top:20px;">
+<span>
+<span style="margin-left:6px; margin-right:6px;">
+{{< fa file-powerpoint >}} Slides </span>
+<span style="margin-left:6px; margin-right:6px;">
+{{< fa brands google-drive >}} Slides (Google Drive) </span>
+<span style="margin-left:6px; margin-right:6px;">
+{{< fa brands firefox-browser >}} Exercises (JupyterLite) </span>
+<span style="margin-left:6px; margin-right:6px;">
+{{< fa brands google >}} Exercises (Google CoLab) </span>
+</span>
+</p>

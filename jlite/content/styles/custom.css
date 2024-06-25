@@ -1,0 +1,14 @@
+dl.exercise {
+    border: #a7c947 1px solid;
+    margin-top: 1em;
+}
+.exercise dt {
+    color: #e9f2d1; background-color: #a7c947;
+    padding: 6px; display: block;
+}
+.exercise dt::before {
+    content: '🧐 ';
+}
+.exercise dd {
+    padding: 6px;
+}
