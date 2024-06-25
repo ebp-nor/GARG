@@ -31,6 +31,7 @@ colabhost <- paste0(
   "https://colab.research.google.com/github/",
   host, "/GARG/blob/main/jlite/content/"
 )
+drivehost <- "https://drive.google.com/uc?export=copy&id="
 ```
 
 ```{r }
