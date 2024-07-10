@@ -1,3 +1,8 @@
+matplotlib
+networkx
+tqdm
+scipy
+drawsvg
 jupyterquiz==2.7.0a2
 pyyaml
 tszip
