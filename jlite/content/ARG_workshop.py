@@ -173,10 +173,13 @@ class WrightFisher(Workbook):
         super().__init__()
 
 
-class Workbook1(Workbook):
+class Workbook1A(Workbook):
     def __init__(self):
         super().__init__()
 
+class Workbook1B(Workbook):
+    def __init__(self):
+        super().__init__()
 
 class CoalescentHandson(Workbook):
     def __init__(self):
