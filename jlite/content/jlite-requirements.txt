@@ -1,0 +1,4 @@
+jupyterquiz==2.7.0a2
+pyyaml
+tszip
+stdpopsim==0.2.1a1

@@ -25,6 +25,58 @@ HOWTO:
               Try again (hint: look at your calendar :-))
 
 
+Workbook1:
+  tables:
+    - question: >-
+        What does each row of the nodes table represent?
+      type: many_choice
+      answers:
+        - answer: A diploid set of genomes
+          correct: false
+        - answer: A haploid genome
+          correct: true
+        - answer: A haploid genome
+          correct: true
+    - question: >-
+        What does each row of the edges table represent?
+      type: many_choice
+      answers:
+        - answer: A connection between a parent and a child individual
+          correct: false
+          feedback: >-
+            Hint: reread the text!
+        - answer: A genetic intervals transmitted between nodes
+          correct: True
+    - question: >-
+        What is stored in the individuals table?
+      type: many_choice
+      answers:
+        - answer: PythonBrowser
+          correct: false
+          feedback: >-
+            Hint: reread the text!
+        - answer: Pyodide
+          correct: true
+  array_access:
+    - question: What is the child node ID of the last edge
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 28
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (hint, use ts.edges_child)
+  simplified_tree_MRCA:
+    - question: What is the node ID of the MRCA of samples 0 and 1?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 30
+          feedback: correct
+
 CoalescentHandson:
   tmrca:
     - question: >-
