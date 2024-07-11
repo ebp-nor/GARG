@@ -237,6 +237,68 @@ def setup_coalescent_handson():
 def setup_wright_fisher():
     return WrightFisher()
 
+class WrightFisherSimulator:
+    def __init__(self, Ne, seq_len=1000, random_seed=7):
+        self.flags = tskit.NODE_IS_SAMPLE
+        self.rng = np.random.default_rng(seed=random_seed)
+        self.tables = tskit.TableCollection(sequence_length=seq_len)
+        self.tables.time_units = "generations"
+        self.current_population = self.initialize(Ne)
+
+    def run(self, gens, simplify=False, samples=None, **kwargs):
+        # NB: assume current_population is at time 0, and count downwards
+        # so that generations are negative. On output, rebase the times
+        # so the current generation is at time 0
+        for neg_gens in -np.arange(gens):
+            self.current_population = self.reproduce(self.current_population, neg_gens-1)
+
+        # reorder the nodes so that youngest are IDs 0..n
+        self.tables.nodes.time += gens
+        self.tables.subset(np.arange(self.tables.nodes.num_rows)[::-1])
+        self.tables.sort()  # Sort edges into canonical order, required for converting to a tree seq
+
+        if simplify:
+            if samples is None:
+                samples = np.flatnonzero(self.tables.nodes.time == 0)
+            self.tables.simplify(samples, **kwargs)
+        return self.tables.tree_sequence()
+
+
+    def initialize(self, diploid_population_size):
+        """
+        Save a population to the tskit_tables and return a Python dictionary
+        mapping the newly created individual ids to a pair of genomes (node ids)
+        """
+        temp_pop = {}  # make an empty dictionary
+        for _ in range(diploid_population_size):
+            # store in the TSKIT tables
+            i = self.tables.individuals.add_row(parents=(tskit.NULL, tskit.NULL))
+            maternal_node = self.tables.nodes.add_row(self.flags, time=0, individual=i)
+            paternal_node = self.tables.nodes.add_row(self.flags, time=0, individual=i)
+            # Add to the dictionary: map the individual ID to the two node IDs
+            temp_pop[i] = (maternal_node, paternal_node)
+        return temp_pop
+
+    def reproduce(self, previous_pop, current_time):
+        temp_pop = {}
+        prev_individual_ids = list(previous_pop.keys())
+        for _ in range(len(previous_pop)):
+            mum, dad = self.rng.choice(prev_individual_ids, size=2, replace=False)
+            i = self.tables.individuals.add_row()
+            maternal_node = self.tables.nodes.add_row(time=current_time, individual=i)
+            paternal_node = self.tables.nodes.add_row(time=current_time, individual=i)
+            temp_pop[i] = (maternal_node, paternal_node)
+    
+            # Now add inheritance paths to the edges table, ignoring recombination
+            self.add_edges(self.rng.permuted(previous_pop[mum]), maternal_node)
+            self.add_edges(self.rng.permuted(previous_pop[dad]), paternal_node)
+        return temp_pop
+
+    def add_edges(self, randomly_ordered_parent_nodes, child_node):
+        parent_node = randomly_ordered_parent_nodes[0]
+        L = self.tables.sequence_length
+        self.tables.edges.add_row(parent=parent_node, child=child_node, left=0, right=L)
+
 
 ## Functions for drawing & plotting
 
@@ -330,3 +392,5 @@ def draw_pedigree(ped_ts, figsize=None, **kwargs):
     node_colours = [colours[node_attr["population"]] for node_attr in G.nodes.values()]
     nx.draw_networkx(G, pos, with_labels=True, node_color=node_colours, **kwargs)
     plt.show()
+
+
