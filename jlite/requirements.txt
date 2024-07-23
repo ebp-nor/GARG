@@ -50,7 +50,7 @@ tsinfer
 tsdate
 demesdraw
 seaborn
-jupyterquiz
+jupyterquiz==2.7.0a2  # to fix https://github.com/jmshea/jupyterquiz/issues/20
 jupyterlab-filesystem-access
 networkx
 pyyaml
