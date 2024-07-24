@@ -102,7 +102,7 @@ Workbook1A:
         - type: value
           correct: true
           value: 27
-          feedback: correct
+          feedback: Correct
 
 Workbook1B:
   tree:
@@ -113,8 +113,7 @@ Workbook1B:
         - type: value
           correct: true
           value: 155
-          feedback: correct
-        - type: default
+          feedback: Correct
   expected_tmrca:
     - question: >-
         What is the expected mean TMRCA value (given that Ne is 10 above)?
@@ -123,9 +122,8 @@ Workbook1B:
         - type: value
           correct: true
           value: 20
-          feedback: correct
-        - type: default
-  Ne_calc:
+          feedback: Correct. This should be quite close to the observed mean
+  Human_Ne_TRMCA:
     - question: Assuming panmixis, an effective population size of 15000, and a generation time of 27 years,
         what is the expected average divergence time between 2 human genomes?
       type: many_choice
@@ -148,7 +146,7 @@ Workbook1B:
           correct: false
           feedback: >-
             The expected TMRCA is twice the effective population size.
-    - question: Why might this be nonsense?
+    - question: Why might an effective population size be a misleading number to quote?
       type: many_choice
       answers:
         - answer: "XXX"
@@ -163,7 +161,53 @@ Workbook1B:
           correct: false
           feedback: >-
             zzzzz.
-
+  Human_mu_TRMCA:
+    - question: How many sample nodes (sample genomes) are there in the tree sequence?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 6404
+          feedback: Correct. There are more than a thousand genomes in the TGP dataset.
+    - question: How many individuals are there in the tree sequence?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 3202
+          feedback: Correct.
+    - question: What is the estimated average TMRCA for this 5MB section of genome, to the nearest 10 thousand years?
+      type: numeric
+      precision: 2
+      answers:
+        - type: value
+          correct: true
+          value: 992789
+          feedback: Correct.
+        - type: value
+          correct: true
+          value: 990000
+          feedback: Correct.
+  mean_tmrca:
+    - question: The mean TMRCA for n=2 samples is 2 Ne. The root_time above measures the TMRCA for n=40 samples.
+        What is a reasonable approximation for the mean TMRCA in this case (as n gets large)
+      type: many_choice
+      answers:
+        - answer: "roughly 4 Ne"
+          correct: true
+          feedback: >-
+            Yes, this is the expected value as the number of samples tends to infinity. In other words
+            as you increase the number of samples past 2, you only expect to double the mean TMRCA.
+        - answer: "roughly Ne"
+          correct: false
+          feedback: >-
+            Incorrect: as you increase the number of samples, the mean MRCA for all samples should increase
+        - answer: "roughly 40 Ne"
+          correct: false
+        - answer: "As n increases to infinity, the mean TMRCA will also increase to infinity"
+          correct: false
+          feedback: >-
+            Incorrect: the mean TMRCA increases, but rapidly approaches a limit.
 Workbook1C:
   expected_tmrca:
     - question: >-
