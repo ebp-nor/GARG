@@ -1,9 +1,12 @@
+import collections
 import itertools
 import os
 import sys
 from datetime import datetime
 
 from matplotlib import pyplot as plt
+from matplotlib import collections  as mc
+
 import networkx as nx
 import numpy as np
 import tskit
@@ -95,10 +98,11 @@ class DownloadProgressBar(tqdm.tqdm):
 class Workbook:
     styles = open(os.path.join(path, "styles/custom.css")).read()
     css = f"<style>{styles}</style>"
+    js = "<script src='https://d3js.org/d3.v7.min.js'></script>"
     # See https://github.com/jupyterlite/jupyterlite/issues/407#issuecomment-1353088447
     html_text = [
         """<table style="width: 100%;"><tr>
-        <td style="text-align: left;">Your notebook is ready to go!</td>""",  # => 0
+        <td style="text-align: left;">✅ Your notebook is ready to go!</td>""",  # => 0
         """<td style="text-align: right;">
         <button type="button" id="button_for_indexeddb">Clear JupyterLite local storage
         </button></td>""",   # => 1 (omit if not in jlite)
@@ -157,9 +161,9 @@ class Workbook:
     @property
     def setup(self):
         if "pyodide" in sys.modules:
-            return HTML(self.css + "".join(self.html_text))
+            return HTML(self.js + self.css + "".join(self.html_text))
         else:
-            return HTML(self.css + "".join([self.html_text[0], self.html_text[2]]))
+            return HTML(self.js + self.css + "".join([self.html_text[0], self.html_text[2]]))
 
 
 class HOWTO(Workbook):
@@ -177,9 +181,21 @@ class Workbook1A(Workbook):
     def __init__(self):
         super().__init__()
 
+
 class Workbook1B(Workbook):
     def __init__(self):
         super().__init__()
+
+
+class Workbook1C(Workbook):
+    def __init__(self):
+        super().__init__()
+
+
+class Workbook1D(Workbook):
+    def __init__(self):
+        super().__init__()
+
 
 class CoalescentHandson(Workbook):
     def __init__(self):
@@ -237,30 +253,35 @@ def setup_coalescent_handson():
 def setup_wright_fisher():
     return WrightFisher()
 
-class WrightFisherSimulator:
-    def __init__(self, Ne, seq_len=1000, random_seed=7):
+class FwdWrightFisherSimulator:
+    def __init__(self, population_size, seq_len=1000, random_seed=8):
         self.flags = tskit.NODE_IS_SAMPLE
         self.rng = np.random.default_rng(seed=random_seed)
         self.tables = tskit.TableCollection(sequence_length=seq_len)
         self.tables.time_units = "generations"
-        self.current_population = self.initialize(Ne)
+        self.current_population = self.initialize(population_size)
 
-    def run(self, gens, simplify=False, samples=None, **kwargs):
-        # NB: assume current_population is at time 0, and count downwards
-        # so that generations are negative. On output, rebase the times
-        # so the current generation is at time 0
+    def run(self, gens, simplify=True, **kwargs):
+        # NB: set time of current_population=0 & count downwards (generations are negative).
         for neg_gens in -np.arange(gens):
             self.current_population = self.reproduce(self.current_population, neg_gens-1)
 
-        # reorder the nodes so that youngest are IDs 0..n
+        # On output, rebase the times so the current generation is at time 0
         self.tables.nodes.time += gens
-        self.tables.subset(np.arange(self.tables.nodes.num_rows)[::-1])
+        # Reorder the nodes in time order, youngest first
+        time_order = np.argsort(self.tables.nodes.time, kind='stable')
+        node_map = {u: i for i, u in enumerate(time_order)}
+        self.tables.subset(time_order)
+        for k in self.current_population.keys():
+            self.current_population[k] = [node_map[v] for v in self.current_population[k]]
         self.tables.sort()  # Sort edges into canonical order, required for converting to a tree seq
 
         if simplify:
-            if samples is None:
-                samples = np.flatnonzero(self.tables.nodes.time == 0)
-            self.tables.simplify(samples, **kwargs)
+            if "samples" not in kwargs:
+                kwargs["samples"] = [u for nodes in self.current_population.values() for u in nodes]
+            node_map = self.tables.simplify(**kwargs)
+            for k in self.current_population.keys():
+                self.current_population[k] = [node_map[v] for v in self.current_population[k]]
         return self.tables.tree_sequence()
 
 
@@ -276,7 +297,7 @@ class WrightFisherSimulator:
             maternal_node = self.tables.nodes.add_row(self.flags, time=0, individual=i)
             paternal_node = self.tables.nodes.add_row(self.flags, time=0, individual=i)
             # Add to the dictionary: map the individual ID to the two node IDs
-            temp_pop[i] = (maternal_node, paternal_node)
+            temp_pop[i] = [maternal_node, paternal_node]
         return temp_pop
 
     def reproduce(self, previous_pop, current_time):
@@ -284,7 +305,7 @@ class WrightFisherSimulator:
         prev_individual_ids = list(previous_pop.keys())
         for _ in range(len(previous_pop)):
             mum, dad = self.rng.choice(prev_individual_ids, size=2, replace=False)
-            i = self.tables.individuals.add_row()
+            i = self.tables.individuals.add_row(parents=(mum, dad))
             maternal_node = self.tables.nodes.add_row(time=current_time, individual=i)
             paternal_node = self.tables.nodes.add_row(time=current_time, individual=i)
             temp_pop[i] = (maternal_node, paternal_node)
@@ -300,13 +321,34 @@ class WrightFisherSimulator:
         self.tables.edges.add_row(parent=parent_node, child=child_node, left=0, right=L)
 
 
+class FwdWrightFisherRecombSim(FwdWrightFisherSimulator):
+    def add_edges(self, randomly_ordered_parent_nodes, child_node):
+        L = self.tables.sequence_length
+        num_breakpoints = self.rec_rng.poisson(L * self.recombination_rate, size=1)
+        breakpoint_positions = np.unique([0, *self.rec_rng.integers(L, size=num_breakpoints), L])
+        choose_genome = 0
+        for left, right in zip(breakpoint_positions[:-1], breakpoint_positions[1:]):
+            self.tables.edges.add_row(
+                left=left,
+                right=right,
+                parent=randomly_ordered_parent_nodes[choose_genome],
+                child=child_node,
+            )
+            choose_genome = 1 if choose_genome == 0 else 0
+
+    def __init__(self, population_size, seq_len=1000, recombination_rate=1e-8, random_seed=427):
+        self.recombination_rate = recombination_rate
+        self.rec_rng = np.random.default_rng(seed=random_seed)
+        super().__init__(population_size, seq_len, random_seed)
 ## Functions for drawing & plotting
 
-def basic_genealogy_viz(tables_or_ts, ax=None, *, show_node_ids=True, reposition_nodes=False, title=None):
+def basic_genealogy_viz(tables_or_ts, ax=None, *, show_node_ids=True, show_individuals=None, title=None):
   """
   Plot genealogical tables (designed for non-recombinant fwd sims). As this is designed to
   display tables as they are built, either a TreeSequence or a TableCollection can be passed in
-  If reorder_nodes is True, we don't plot the nodes grouped by individual
+  If show_individuals is False, we don't group nodes by individual, but reposition them
+  to avoid overlap if possible. If show_individuals is None, we group but don't plot individual
+  outlines. If show_individuals is True, we plot hexagonal outlines
   """
   try:
     tables = tables_or_ts.tables
@@ -315,29 +357,32 @@ def basic_genealogy_viz(tables_or_ts, ax=None, *, show_node_ids=True, reposition
   if ax is None:
     ax=plt.gca()
   node_pos_x = {}
-  individual = None
+  individual_pos = collections.defaultdict(list)
   # assumes nodes are ordered by time
   order = {u: 0 for u in range(tables.nodes.num_rows)}
+  individual_pos = collections.defaultdict(list)
   for time, nodes in itertools.groupby(enumerate(tables.nodes), lambda x: x[1].time):
+    individual = None
     x_pos = 0
     node_dict = {}
     for i, (u, nd) in enumerate(nodes):
       parent = tables.edges.parent[tables.edges.child == u]
-      if reposition_nodes:
-        # order by parent ID
-        node_dict[u] = order[parent[0]] if len(parent) == 1 else i
-      else:
+      if show_individuals is None or show_individuals:
         # order by individual ID
         node_dict[u] = nd.individual
+      else:
+        # order by parent node ID
+        node_dict[u] = order[parent[0]] if len(parent) == 1 else i
     # sort by value
     node_dict = {k: node_dict[k] for k in sorted(node_dict.keys(), key=lambda x: node_dict[x])}
     for i, (u, v) in enumerate(node_dict.items()):
-      if reposition_nodes:
-        order[u] = i
-      else:
+      if show_individuals is None or show_individuals:
         if v != individual:
           x_pos += 1
         individual = v
+        individual_pos[individual].append([x_pos, time])
+      else:
+        order[u] = i
       node_pos_x[u] = x_pos
       x_pos += 1
   has_edge = np.zeros(tables.nodes.num_rows, dtype=bool)
@@ -350,30 +395,41 @@ def basic_genealogy_viz(tables_or_ts, ax=None, *, show_node_ids=True, reposition
     x = np.array([node_pos_x[u] for u in range(tables.nodes.num_rows)])
     if np.any(use):
       ax.scatter(x[use], tables.nodes.time[use], c=colour_vec[use], marker=marker)
+  tweak_y = 0
   if show_node_ids:
     tweak_y = 0.02 * tables.nodes.time.max()
     for i, y in enumerate(tables.nodes.time):
       ax.annotate(i, (node_pos_x[i], y-tweak_y), ha="center", va="top")
+  if len(individual_pos) and show_individuals:
+      individual_pos = np.array([np.mean(v, axis=0) for v in individual_pos.values()])
+      ax.scatter(individual_pos[:,0], individual_pos[:,1]-tweak_y, facecolors='none', edgecolors="0.9", marker="H", s=1400)
   for edge in tables.edges:
     x = node_pos_x[edge.child]
     dx = node_pos_x[edge.parent] - x
     ax.arrow(x, tables.nodes[edge.child].time, dx, 1, color="lightblue")
   ax.set_xticks([])
+  max_x = tables.nodes.time.max() + tweak_y * 3
+  ax.set_ylim(None, max_x)
   ax.set_yticks(np.arange(tables.nodes.time.max()+1))
   ax.set_ylabel("Time (generations ago)")
   ax.spines['top'].set_visible(False)
   ax.spines['bottom'].set_visible(False)
   if title is not None:
     ax.set_title(title)
-    
+
+
 rotated_label_style = (
     ".node > .lab {font-size: 80%}"
     ".leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"
 )
 
-def draw_pedigree(ped_ts, figsize=None, **kwargs):
-    if figsize is not None:
-        plt.figure(figsize=figsize)
+def draw_pedigree(ped_ts, ax=None, title=None, show_axis=False, font_size=None, ts_edge=None, **kwargs):
+    # If ts_edge is None, do not overlay tskit edges, otherwise specify a color
+    # or "black" if True
+    if ts_edge is True:
+       ts_edge = "black"
+    if ax is None:
+        ax=plt.gca()
     G = nx.DiGraph()
     for ind in ped_ts.individuals():
         time = ped_ts.node(ind.nodes[0]).time
@@ -381,16 +437,126 @@ def draw_pedigree(ped_ts, figsize=None, **kwargs):
         G.add_node(ind.id, time=time, population=pop)
         for p in ind.parents:
             if p != tskit.NULL:
-                G.add_edge(ind.id, p)
-    nx.relabel_nodes(
-        G,
-        {i.id: "\n".join(str(u) for u in i.nodes) for i in ped_ts.individuals()},
-        copy=False,
-    )
-    pos = nx.multipartite_layout(G, subset_key="time", align="horizontal")
-    colours = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    node_colours = [colours[node_attr["population"]] for node_attr in G.nodes.values()]
-    nx.draw_networkx(G, pos, with_labels=True, node_color=node_colours, **kwargs)
-    plt.show()
+                G.add_edge(p, ind.id)
+    maxtime = int(ped_ts.max_time)
+    pos = nx.multipartite_layout(G, subset_key="time", align="horizontal", scale=maxtime)
+    nx.draw_networkx(G, pos, with_labels=False, ax=ax, **kwargs)
+    labels = {i.id: "\n".join(str(u) for u in i.nodes) for i in ped_ts.individuals()}
+    nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=font_size)
+    if ts_edge:
+        new_G = nx.create_empty_copy(G)
+        for e in ped_ts.edges():
+            parent = ped_ts.node(e.parent)
+            child = ped_ts.node(e.child)
+            if parent.individual != tskit.NULL and child.individual != tskit.NULL:
+                new_G.add_edge(parent.individual, child.individual)
+        nx.draw_networkx_edges(new_G, pos, ax=ax, edge_color=ts_edge, arrowstyle="-")
+    if show_axis:
+        ax.set_yticks(np.arange(-maxtime, maxtime + 1, 2))
+        ax.set_yticklabels(np.arange(maxtime + 1))
+        ax.tick_params(labelleft=True)
+        ax.set_ylabel("Time (generations ago)")
+    if title is not None:
+        ax.set_title(title)
 
 
+def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True):
+    """
+    Plot the edges in a tree sequence
+    """
+    if ax is None:
+        ax=plt.gca()
+
+    tm = ts.nodes_time[ts.edges_child] if use_child_time else ts.nodes_time[ts.edges_parent]
+    lines = np.array([[ts.edges_left, ts.edges_right], [tm, tm]]).T
+
+    lc = mc.LineCollection(lines, linewidths=1)
+    ax.add_collection(lc)
+    ax.autoscale()
+    ax.margins(0)
+    if log_time:
+        ax.set_yscale("log")
+    ax.set_ylabel(f"Time of edge {'child' if use_child_time else 'parent'} ({ts.time_units})")
+    ax.set_xlabel("Genome position")
+    ax.set_ylim(0.9, None)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    if title is not None:
+        ax.set_title(title)
+
+
+def partial_simplify(
+    ts, samples=None, *args, remove_all_locally_unary=None,
+    keep_unary_in_individuals=None, map_nodes=None, filter_individuals=None, **kwargs):
+    """
+    Run `simplify` on a tree sequence but keep any nodes that have
+    more than one parent or more than one child
+    """
+    if keep_unary_in_individuals is not None:
+        raise ValueError("Cannot use this option with `simplify_remove_pass_through`")    
+    if filter_individuals is not None:
+        raise ValueError("Cannot use this option with `simplify_remove_pass_through`")
+    if samples is None:
+        samples = ts.samples()
+    tables = ts.dump_tables()
+    # hack this using `keep_unary in individuals`, by adding each node we want to keep
+    # to a new individual
+    fake_individual = tables.individuals.add_row()
+    keep_nodes = np.zeros(ts.num_nodes, dtype=bool)
+    if remove_all_locally_unary:
+        _, node_map = ts.simplify(samples, map_nodes=True)  # retains coalescent nodes
+        keep_nodes[np.where(node_map != tskit.NULL)] = True
+    else:
+        keep_nodes[samples] = True
+        unique_edges = np.unique(np.array([tables.edges.parent, tables.edges.child]).T, axis=0)
+        for i in (0, 1):  # parent, child
+            uniq, count = np.unique(unique_edges[:, i], return_counts=True)
+            keep_nodes[uniq[count > 1]] = True
+    # Add a new individual for each node we want to keep, if it doesn't have one
+    nodes_individual = tables.nodes.individual
+    nodes_individual[np.logical_not(keep_nodes)] = tskit.NULL
+    nodes_individual[np.logical_and(keep_nodes, nodes_individual==tskit.NULL)] = fake_individual
+    tables.nodes.individual=nodes_individual
+    node_map = tables.simplify(
+        samples,
+        *args, 
+        keep_unary_in_individuals=True,
+        filter_individuals=False,
+        **kwargs)
+    # Remove the fake individual
+    tables.individuals.truncate(ts.num_individuals)
+    nodes_individual = tables.nodes.individual
+    nodes_individual[nodes_individual == fake_individual] = tskit.NULL
+    tables.nodes.individual=nodes_individual
+    if map_nodes:
+        return tables.tree_sequence(), node_map
+    else:
+        return tables.tree_sequence()
+    
+def simplify_remove_all_unary(
+    ts, samples=None, *args,
+    keep_unary_in_individuals=None, map_nodes=None, filter_individuals=None, **kwargs
+):
+    if keep_unary_in_individuals is not None:
+        raise ValueError("Cannot use this option with `simplify_remove_all_unary`")    
+    if filter_individuals is not None:
+        raise ValueError("Cannot use this option with `simplify_remove_all_unary`")
+    if samples is None:
+        samples = ts.samples()
+    tables = ts.dump_tables()
+    # hack this using `keep_unary in individuals`, by adding each node we want to keep
+    # to a new individual
+    fake_individual = tables.individuals.add_row()
+
+def mutation_labels(ts):
+    """
+    Return a mapping of mutation ID to "AncestralPosDerived" label
+    """
+    mut_labels = {}  # An array of labels for the mutations, listing position & allele change
+    l = "{}{:g}{}"
+    for mut in ts.mutations():  # This entire loop is just to make pretty labels
+        site = ts.site(mut.site)
+        older_mut = mut.parent >= 0  # is there an older mutation at the same position?
+        prev = ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
+        mut_labels[mut.id] = l.format(prev, site.position, mut.derived_state)
+    return mut_labels
