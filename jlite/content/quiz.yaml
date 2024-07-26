@@ -28,70 +28,125 @@ HOWTO:
 Workbook1A:
   tables:
     - question: >-
-        What does each row of the nodes table represent?
+        What does each node (i.e. row of the node table) represent in tskit?
       type: many_choice
       answers:
         - answer: A diploid set of genomes
           correct: false
+          feedback: >-
+            Incorrect! A set of genomes is represented by a tskit "individual".
         - answer: A haploid genome
           correct: true
-        - answer: A haploid genome
-          correct: true
-    - question: >-
-        What does each row of the edges table represent?
-      type: many_choice
-      answers:
-        - answer: A connection between a parent and a child individual
+        - answer: A region of a haploid genome
           correct: false
           feedback: >-
-            Hint: reread the text!
-        - answer: A genetic intervals transmitted between nodes
-          correct: True
+            Incorrect! Nodes don't have any concept of genomic extent or length.
+            That information is stored in the edges table. 
     - question: >-
-        What is stored in the individuals table?
+        What does each edge (i.e. row of the edge table) represent in <em>tskit</em>?
       type: many_choice
       answers:
-        - answer: PythonBrowser
+        - answer: A genealogical connection between a parent and a child individual
           correct: false
           feedback: >-
-            Hint: reread the text!
-        - answer: Pyodide
+            Incorrect. A tskit edge connects *genomes* (nodes) not individuals.
+        - answer: A genetic interval transmitted between ancestor and descendant nodes
           correct: true
+          feedback: >-
+            Correct! As well as a "parent" (ancestor) and "child" (descendant) node, each tskit edge
+            specifies a left and right coordinate, representing a genomic interval.
+        - answer: A coalescent event
+          correct: false
+        - answer: The boundaries of a tree sequence
+          correct: false
+  nodes_table:
+    - question: What is the ID of the individual associated with node 15
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 7
+          feedback: >-
+            Correct: this is not the same as the node ID
+        - type: default
+          feedback: >-
+            Incorrect, try again.
+    - question: What is the ID of the population associated with the nodes, and what does it indicate?
+      type: many_choice
+      answers:
+        - answer: "0"
+          correct: false
+          feedback: Incorrect
+        - answer: "-1, indicating that the population is undefined or unknown"
+          correct: true
+          feedback: >-
+            Correct! In tskit, an index value of "-1" indicates "NULL" (i.e. undefined)
+        - answer: "-1, indicating the last population in the populations table"
+          correct: false
+          feedback: Incorrect
   array_access:
     - question: What is the child node ID of the last edge
       type: numeric
       answers:
         - type: value
           correct: true
-          value: 28
+          value: 24
           feedback: correct
         - type: default
           feedback: >-
-            Try again (hint, use ts.edges_child)
+            Incorrect, try again (hint, use ts.edges_child)
   simplified_tree_MRCA:
-    - question: What is the node ID of the MRCA of samples 0 and 1?
+    - question: What is the node ID of the MRCA of samples 0 and 3?
       type: numeric
       answers:
         - type: value
           correct: true
-          value: 30
-          feedback: correct
+          value: 27
+          feedback: Correct
 
 Workbook1B:
+  tree:
+    - question: >-
+       In the summary, what is the total branch length of this tree?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 155
+          feedback: Correct
   expected_tmrca:
     - question: >-
-        What is the expected mean TMRCA value (given that Ne is 20)?
+        What is the expected mean TMRCA value (given that Ne is 10 above)?
       type: numeric
       answers:
         - type: value
           correct: true
           value: 20
-          feedback: correct
-        - type: default
+          feedback: Correct. This should be quite close to the observed mean
+  Human_Ne_TRMCA:
+    - question: Assuming panmixis, an effective population size of 15000, and a generation time of 27 years,
+        what is the expected average divergence time between 2 human genomes?
+      type: many_choice
+      answers:
+        - answer: "~30 000 generations"
+          correct: true
           feedback: >-
-            Try again (hint, use ts.edges_child)
-  simplified_tree_MRCA:
-    - question: why might a fixed Ne for humans be an oversimplification?
+            Yes, it's simply 2 Ne.
+        - answer: "~810 000 years"
+          correct: true
+          feedback: >-
+            Correct, assuming a generation time of 27 years (as per recent studies). Modern humans are
+            thought to have emerged around 300 000 years ago: an average divergence nearly 3 times older,
+            almost a million years ago, might seem surprising.  
+        - answer: "~30 000 years"
+          correct: false
+          feedback: >-
+            Thirty-thousand is the expected number of generations (as per the Wright-Fisher model).
+        - answer: "~15 000 generations"
+          correct: false
+          feedback: >-
+            The expected TMRCA is twice the effective population size.
+    - question: Why might an effective population size be a misleading number to quote?
       type: many_choice
       answers:
         - answer: "XXX"
@@ -103,6 +158,125 @@ Workbook1B:
           feedback: >-
             yyyyy
         - answer: "ZZZZ"
+          correct: false
+          feedback: >-
+            zzzzz.
+  Human_mu_TRMCA:
+    - question: How many sample nodes (sample genomes) are there in the tree sequence?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 6404
+          feedback: Correct. There are more than a thousand genomes in the TGP dataset.
+    - question: How many individuals are there in the tree sequence?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 3202
+          feedback: Correct.
+    - question: What is the estimated average TMRCA for this 5MB section of genome, to the nearest 10 thousand years?
+      type: numeric
+      precision: 2
+      answers:
+        - type: value
+          correct: true
+          value: 992789
+          feedback: Correct.
+        - type: value
+          correct: true
+          value: 990000
+          feedback: Correct.
+  mean_tmrca:
+    - question: The mean TMRCA for n=2 samples is 2 Ne. The root_time above measures the TMRCA for n=40 samples.
+        What is a reasonable approximation for the mean TMRCA in this case (as n gets large)
+      type: many_choice
+      answers:
+        - answer: "roughly 4 Ne"
+          correct: true
+          feedback: >-
+            Yes, this is the expected value as the number of samples tends to infinity. In other words
+            as you increase the number of samples past 2, you only expect to double the mean TMRCA.
+        - answer: "roughly Ne"
+          correct: false
+          feedback: >-
+            Incorrect: as you increase the number of samples, the mean MRCA for all samples should increase
+        - answer: "roughly 40 Ne"
+          correct: false
+        - answer: "As n increases to infinity, the mean TMRCA will also increase to infinity"
+          correct: false
+          feedback: >-
+            Incorrect: the mean TMRCA increases, but rapidly approaches a limit.
+Workbook1C:
+  expected_tmrca:
+    - question: >-
+        How many local trees are there ? 
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 20
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (hint, use ts.edges_child)
+    - question: >-
+        What is the MRCA of all the samples at the last genomic position? ; 
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 20
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (hint, use ts.edges_child)
+
+Workbook1D:
+  sites_and_mutations:
+    - question: >-
+        What is the position of the first site. 
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 26
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (it's the site with ID=0)
+    - question: >-
+        How many mutations at this site? 
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 1
+          feedback: "Correct. It's possible to have more than one mutatation, but it's unlikely"
+    - question: >-
+        Which node is the mutation above?
+      type: numeric 
+      answers:
+        - type: value
+          correct: true
+          value: 13
+          feedback: "Correct. It's possible to have more than one mutatation, but it's unlikely"
+    - question: >-
+        Which sample nodes have inherited a T
+      type: many_choice
+      answers:
+        - answer: "Nodes 1 and 5"
+          correct: true
+          feedback: >-
+            xxx.
+        - answer: "Nodes 0 and 1"
+          correct: false
+        - answer: "Node 13"
+          correct: false
+          feedback: >-
+            zzzzz.
+        - answer: "Nodes 0, 3 and 6"
           correct: false
           feedback: >-
             zzzzz.
