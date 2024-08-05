@@ -460,7 +460,7 @@ def draw_pedigree(ped_ts, ax=None, title=None, show_axis=False, font_size=None, 
         ax.set_title(title)
 
 
-def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True):
+def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True, linewidths=1, **kwargs):
     """
     Plot the edges in a tree sequence
     """
@@ -470,7 +470,7 @@ def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True):
     tm = ts.nodes_time[ts.edges_child] if use_child_time else ts.nodes_time[ts.edges_parent]
     lines = np.array([[ts.edges_left, ts.edges_right], [tm, tm]]).T
 
-    lc = mc.LineCollection(lines, linewidths=1)
+    lc = mc.LineCollection(lines, linewidths=linewidths, **kwargs)
     ax.add_collection(lc)
     ax.autoscale()
     ax.margins(0)
@@ -533,20 +533,7 @@ def partial_simplify(
     else:
         return tables.tree_sequence()
     
-def simplify_remove_all_unary(
-    ts, samples=None, *args,
-    keep_unary_in_individuals=None, map_nodes=None, filter_individuals=None, **kwargs
-):
-    if keep_unary_in_individuals is not None:
-        raise ValueError("Cannot use this option with `simplify_remove_all_unary`")    
-    if filter_individuals is not None:
-        raise ValueError("Cannot use this option with `simplify_remove_all_unary`")
-    if samples is None:
-        samples = ts.samples()
-    tables = ts.dump_tables()
-    # hack this using `keep_unary in individuals`, by adding each node we want to keep
-    # to a new individual
-    fake_individual = tables.individuals.add_row()
+
 
 def mutation_labels(ts):
     """
@@ -560,3 +547,44 @@ def mutation_labels(ts):
         prev = ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
         mut_labels[mut.id] = l.format(prev, site.position, mut.derived_state)
     return mut_labels
+
+
+
+def rates_from_ecdf(weights, atoms, quantiles):
+    """
+    Estimate rates from weighted time-to-event data
+    """
+    assert weights.size == atoms.size
+    assert quantiles.size > 2
+    assert quantiles[0] == 0.0 and quantiles[-1] == 1.0
+
+    # sort and filter inputs
+    time_order = np.argsort(atoms)
+    weights = weights[time_order]
+    atoms = atoms[time_order]
+    nonzero = weights > 0
+    atoms = atoms[nonzero]
+    weights = weights[nonzero]
+
+    # find interior quantiles
+    weights = np.append(0, weights)
+    atoms = np.append(0, atoms)
+    ecdf = np.cumsum(weights)
+    indices = np.searchsorted(ecdf, ecdf[-1] * quantiles[1:-1], side='left')
+    lower, upper = atoms[indices - 1], atoms[indices]
+    ecdfl, ecdfu = ecdf[indices - 1] / ecdf[-1], ecdf[indices] / ecdf[-1]
+
+    # interpolate ECDF
+    assert np.all(ecdfu - ecdfl > 0)
+    slope = (upper - lower) / (ecdfu - ecdfl)
+    breaks = np.append(0, lower + slope * (quantiles[1:-1] - ecdfl))
+
+    # calculate coalescence rates within intervals
+    # this uses a Kaplan-Meier-type censored estimator: https://github.com/tskit-dev/tskit/pull/2119
+    coalrate = np.full(quantiles.size - 1, np.nan)
+    propcoal = np.diff(quantiles[:-1]) / (1 - quantiles[:-2])
+    coalrate[:-1] = -np.log(1 - propcoal) / np.diff(breaks)
+    last = indices[-1]
+    coalrate[-1] = np.sum(weights[last:]) / np.dot(atoms[last:] - breaks[-1], weights[last:]) 
+
+    return coalrate, breaks

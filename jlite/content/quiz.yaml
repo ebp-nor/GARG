@@ -124,7 +124,7 @@ Workbook1B:
           value: 20
           feedback: Correct. This should be quite close to the observed mean
   Human_Ne_TRMCA:
-    - question: Assuming panmixis, an effective population size of 15000, and a generation time of 27 years,
+    - question: Assuming panmixis, an effective population size of 15 000, and a generation time of 27 years,
         what is the expected average divergence time between 2 human genomes?
       type: many_choice
       answers:
@@ -260,27 +260,20 @@ Workbook1D:
       answers:
         - type: value
           correct: true
-          value: 13
-          feedback: "Correct. It's possible to have more than one mutatation, but it's unlikely"
+          value: 12
+          feedback: Correct.
     - question: >-
-        Which sample nodes have inherited a T
+        Which sample nodes have inherited an A at the first variable site
       type: many_choice
       answers:
-        - answer: "Nodes 1 and 5"
+        - answer: "Nodes 7, 8, and 9"
           correct: true
           feedback: >-
             xxx.
-        - answer: "Nodes 0 and 1"
+        - answer: "Nodes 0, 3, and 6"
           correct: false
-        - answer: "Node 13"
+        - answer: "Node 17 only"
           correct: false
-          feedback: >-
-            zzzzz.
-        - answer: "Nodes 0, 3 and 6"
-          correct: false
-          feedback: >-
-            zzzzz.
-
 CoalescentHandson:
   tmrca:
     - question: >-
