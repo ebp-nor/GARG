@@ -460,13 +460,17 @@ def draw_pedigree(ped_ts, ax=None, title=None, show_axis=False, font_size=None, 
         ax.set_title(title)
 
 
-def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True, linewidths=1, **kwargs):
+def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True, linewidths=1, plot_hist=False, xaxis=True, **kwargs):
     """
-    Plot the edges in a tree sequence
+    Plot the edges in a tree sequence, 
     """
     if ax is None:
-        ax=plt.gca()
-
+        if plot_hist:
+            fig, (ax, ax_hist) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [3, 1]}, sharey=True) 
+        else:
+            ax=plt.gca()
+            ax_hist=None
+        
     tm = ts.nodes_time[ts.edges_child] if use_child_time else ts.nodes_time[ts.edges_parent]
     lines = np.array([[ts.edges_left, ts.edges_right], [tm, tm]]).T
 
@@ -477,12 +481,23 @@ def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True, linew
     if log_time:
         ax.set_yscale("log")
     ax.set_ylabel(f"Time of edge {'child' if use_child_time else 'parent'} ({ts.time_units})")
-    ax.set_xlabel("Genome position")
+    if xaxis:
+        ax.set_xlabel("Genome position")
+    else:
+        ax.set_xticks([])
     ax.set_ylim(0.9, None)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     if title is not None:
         ax.set_title(title)
+    if ax_hist:
+        ax_hist.hist(
+            tm,
+            orientation="horizontal",
+            bins=np.logspace(0, np.log10(ts.max_time), 25),
+            weights=ts.edges_right - ts.edges_left, 
+        )
+        ax_hist.set_xticks([])
 
 
 def partial_simplify(
@@ -549,42 +564,3 @@ def mutation_labels(ts):
     return mut_labels
 
 
-
-def rates_from_ecdf(weights, atoms, quantiles):
-    """
-    Estimate rates from weighted time-to-event data
-    """
-    assert weights.size == atoms.size
-    assert quantiles.size > 2
-    assert quantiles[0] == 0.0 and quantiles[-1] == 1.0
-
-    # sort and filter inputs
-    time_order = np.argsort(atoms)
-    weights = weights[time_order]
-    atoms = atoms[time_order]
-    nonzero = weights > 0
-    atoms = atoms[nonzero]
-    weights = weights[nonzero]
-
-    # find interior quantiles
-    weights = np.append(0, weights)
-    atoms = np.append(0, atoms)
-    ecdf = np.cumsum(weights)
-    indices = np.searchsorted(ecdf, ecdf[-1] * quantiles[1:-1], side='left')
-    lower, upper = atoms[indices - 1], atoms[indices]
-    ecdfl, ecdfu = ecdf[indices - 1] / ecdf[-1], ecdf[indices] / ecdf[-1]
-
-    # interpolate ECDF
-    assert np.all(ecdfu - ecdfl > 0)
-    slope = (upper - lower) / (ecdfu - ecdfl)
-    breaks = np.append(0, lower + slope * (quantiles[1:-1] - ecdfl))
-
-    # calculate coalescence rates within intervals
-    # this uses a Kaplan-Meier-type censored estimator: https://github.com/tskit-dev/tskit/pull/2119
-    coalrate = np.full(quantiles.size - 1, np.nan)
-    propcoal = np.diff(quantiles[:-1]) / (1 - quantiles[:-2])
-    coalrate[:-1] = -np.log(1 - propcoal) / np.diff(breaks)
-    last = indices[-1]
-    coalrate[-1] = np.sum(weights[last:]) / np.dot(atoms[last:] - breaks[-1], weights[last:]) 
-
-    return coalrate, breaks
