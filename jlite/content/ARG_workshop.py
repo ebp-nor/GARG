@@ -460,29 +460,44 @@ def draw_pedigree(ped_ts, ax=None, title=None, show_axis=False, font_size=None, 
         ax.set_title(title)
 
 
-def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True):
+def edge_plot(ts, ax=None, title=None, use_child_time=None, log_time=True, linewidths=1, plot_hist=False, xaxis=True, **kwargs):
     """
-    Plot the edges in a tree sequence
+    Plot the edges in a tree sequence, 
     """
     if ax is None:
-        ax=plt.gca()
-
+        if plot_hist:
+            fig, (ax, ax_hist) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [3, 1]}, sharey=True) 
+        else:
+            ax=plt.gca()
+            ax_hist=None
+        
     tm = ts.nodes_time[ts.edges_child] if use_child_time else ts.nodes_time[ts.edges_parent]
     lines = np.array([[ts.edges_left, ts.edges_right], [tm, tm]]).T
 
-    lc = mc.LineCollection(lines, linewidths=1)
+    lc = mc.LineCollection(lines, linewidths=linewidths, **kwargs)
     ax.add_collection(lc)
     ax.autoscale()
     ax.margins(0)
     if log_time:
         ax.set_yscale("log")
     ax.set_ylabel(f"Time of edge {'child' if use_child_time else 'parent'} ({ts.time_units})")
-    ax.set_xlabel("Genome position")
+    if xaxis:
+        ax.set_xlabel("Genome position")
+    else:
+        ax.set_xticks([])
     ax.set_ylim(0.9, None)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     if title is not None:
         ax.set_title(title)
+    if ax_hist:
+        ax_hist.hist(
+            tm,
+            orientation="horizontal",
+            bins=np.logspace(0, np.log10(ts.max_time), 25),
+            weights=ts.edges_right - ts.edges_left, 
+        )
+        ax_hist.set_xticks([])
 
 
 def partial_simplify(
@@ -533,20 +548,7 @@ def partial_simplify(
     else:
         return tables.tree_sequence()
     
-def simplify_remove_all_unary(
-    ts, samples=None, *args,
-    keep_unary_in_individuals=None, map_nodes=None, filter_individuals=None, **kwargs
-):
-    if keep_unary_in_individuals is not None:
-        raise ValueError("Cannot use this option with `simplify_remove_all_unary`")    
-    if filter_individuals is not None:
-        raise ValueError("Cannot use this option with `simplify_remove_all_unary`")
-    if samples is None:
-        samples = ts.samples()
-    tables = ts.dump_tables()
-    # hack this using `keep_unary in individuals`, by adding each node we want to keep
-    # to a new individual
-    fake_individual = tables.individuals.add_row()
+
 
 def mutation_labels(ts):
     """
@@ -560,3 +562,5 @@ def mutation_labels(ts):
         prev = ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
         mut_labels[mut.id] = l.format(prev, site.position, mut.derived_state)
     return mut_labels
+
+
