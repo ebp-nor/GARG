@@ -41,7 +41,7 @@ Workbook1A:
           correct: false
           feedback: >-
             Incorrect! Nodes don't have any concept of genomic extent or length.
-            That information is stored in the edges table. 
+            That information is stored in the edges table.
     - question: >-
         What does each edge (i.e. row of the edge table) represent in <em>tskit</em>?
       type: many_choice
@@ -137,7 +137,7 @@ Workbook1B:
           feedback: >-
             Correct, assuming a generation time of 27 years (as per recent studies). Modern humans are
             thought to have emerged around 300 000 years ago: an average divergence nearly 3 times older,
-            almost a million years ago, might seem surprising.  
+            almost a million years ago, might seem surprising.
         - answer: "~30 000 years"
           correct: false
           feedback: >-
@@ -211,7 +211,7 @@ Workbook1B:
 Workbook1C:
   expected_tmrca:
     - question: >-
-        How many local trees are there ? 
+        How many local trees are there ?
       type: numeric
       answers:
         - type: value
@@ -222,7 +222,7 @@ Workbook1C:
           feedback: >-
             Try again (hint, use ts.edges_child)
     - question: >-
-        What is the MRCA of all the samples at the last genomic position? ; 
+        What is the MRCA of all the samples at the last genomic position? ;
       type: numeric
       answers:
         - type: value
@@ -236,7 +236,7 @@ Workbook1C:
 Workbook1D:
   sites_and_mutations:
     - question: >-
-        What is the position of the first site. 
+        What is the position of the first site.
       type: numeric
       answers:
         - type: value
@@ -247,7 +247,7 @@ Workbook1D:
           feedback: >-
             Try again (it's the site with ID=0)
     - question: >-
-        How many mutations at this site? 
+        How many mutations at this site?
       type: numeric
       answers:
         - type: value
@@ -256,7 +256,7 @@ Workbook1D:
           feedback: "Correct. It's possible to have more than one mutatation, but it's unlikely"
     - question: >-
         Which node is the mutation above?
-      type: numeric 
+      type: numeric
       answers:
         - type: value
           correct: true
@@ -273,4 +273,44 @@ Workbook1D:
         - answer: "Nodes 0, 3, and 6"
           correct: false
         - answer: "Node 17 only"
+          correct: false
+
+Workbook1E:
+  gnn:
+    - question: |
+        What are the GNN proportions of sample 3?
+      type: many_choice
+      answers:
+        - answer: "100% CEU (orange)"
+          correct: false
+        - answer: "100% YRI (blue)"
+          correct: false
+        - answer: "50% CEU (orange), 50% YRI (blue)"
+          correct: true
+          feedback: |
+            Correct! The genealogical nearest neighbors correspond to
+            the *sample* nodes 8 and 19 descending from the nearest
+            parent node, node 25356. Node 16041 is an internal node
+            and does not contribute to the GNN.
+  gnn_summary:
+    - question: |
+        What is the summary of GNN proportions for YRI (blue) and CEU
+        (orange)?
+      type: many_choice
+      answers:
+        - answer: |
+            CEU has 100% YRI, 0% CEU, 0% CHB. YRI has 25% YRI, 75% CEU,
+            0% CHB.
+          correct: true
+          feedback: |
+            Correct! CEU only has one sample (19) which has one YRI
+            neigbour (node 8). YRI node 8 has 100% CEU GNN (node 19)
+            and node 3 has 50/50/0 YRI/CEU/CHB; averaging these
+            numbers gives the 25/75/0 proportion. Note that this means
+            the GNN metric is asymmetrical. In this particular case,
+            CEU has 100% YRI neighbours, whereas YRI has a mix of CEU
+            and YRI.
+        - answer: |
+            CEU has 50% YRI, 50% CEU, 0% CHB. YRI has 50% YRI, 50%
+            CEU, 0% CHB.
           correct: false
