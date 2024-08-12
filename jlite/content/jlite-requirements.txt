@@ -9,3 +9,5 @@ pyyaml
 tszip
 stdpopsim==0.2.1a1
 seaborn
+demesdraw
+scikit-allel
