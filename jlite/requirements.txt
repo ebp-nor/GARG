@@ -56,3 +56,4 @@ git+https://github.com/kitchensjn/tskit_arg_visualizer
 networkx
 pyyaml
 drawsvg
+scikit-allel
