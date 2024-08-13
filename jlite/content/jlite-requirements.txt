@@ -4,7 +4,7 @@ tqdm
 scipy
 drawsvg
 jupyterquiz==2.7.0a2
-tskit_arg_visualizer @ git+https://github.com/kitchensjn/tskit_arg_visualizer@main
+tskit_arg_visualizer>=0.0.2
 pyyaml
 tszip
 stdpopsim==0.2.1a1

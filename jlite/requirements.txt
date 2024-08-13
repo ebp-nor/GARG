@@ -52,7 +52,7 @@ demesdraw
 seaborn
 jupyterquiz==2.7.0a2  # to fix https://github.com/jmshea/jupyterquiz/issues/20
 jupyterlab-filesystem-access
-git+https://github.com/kitchensjn/tskit_arg_visualizer
+tskit_arg_visualizer>=0.0.2
 networkx
 pyyaml
 drawsvg
