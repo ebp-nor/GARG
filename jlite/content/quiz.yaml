@@ -223,30 +223,135 @@ Workbook1B:
         - answer: "Adding more samples to a genetic dataset is particularly useful in illuminating the distant past"
           correct: false
           feedback: "Incorrect: adding more samples tends to add more information about the recent, not distant past"
+
 Workbook1C:
-  expected_tmrca:
+  low_rec_breaks:
     - question: >-
-        How many local trees are there?
+        How many recombination events are there in the low recombination example?
       type: numeric
       answers:
         - type: value
           correct: true
-          value: 20
+          value: 1
           feedback: correct
         - type: default
           feedback: >-
-            Try again (hint, use ts.edges_child)
+            Try again (hint, how many unique left and right values are there?)
     - question: >-
-        What is the MRCA of all the samples at the last genomic position?
+        Where is the position of the breakpoint?
       type: numeric
       answers:
         - type: value
           correct: true
-          value: 20
+          value: 79
           feedback: correct
         - type: default
           feedback: >-
-            Try again (hint, use ts.edges_child)
+            Try again
+    - question: >-
+        How many edges are broken up (start or end at) the breakpoint?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 4
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again
+  high_rec_questions:
+    - question: >-
+        How many local trees are there in the original high recombination simulation?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 15
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (hint, use ts_high_recomb.num_trees)
+    - question: >-
+        How many local trees are there in the original high recombination simulation?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 9
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (hint, use ts_high_recomb.simplify().num_trees)
+    - question: >-
+        What is the MRCA of all the samples at the first genomic position?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 38
+          feedback: correct
+        - type: default
+          feedback: >-
+            Try again (hint, look at the top node in the first local tree)
+  simplification_nodes:
+    - question: >-
+        In the first two graphs (levels 1 and 2), which nodes capture recombination events (i.e. have multiple parents)?
+      type: many_choice
+      answers:
+        - answer: "23"
+          correct: true
+          feedback: Correct
+        - answer: "15"
+          correct: true
+          feedback: Correct
+        - answer: "38"
+          correct: false
+          feedback: Incorrect
+        - answer: "25"
+          correct: false
+          feedback: Incorrect
+        - answer: "67"
+          correct: false
+          feedback: Incorrect
+        - answer: "58"
+          correct: false
+          feedback: Incorrect
+    - question: >-
+        In the level 4 graph, which nodes capture recombination events (i.e. have multiple parents)?
+      type: many_choice
+      answers:
+        - answer: "4"
+          correct: true
+          feedback: Correct
+        - answer: "10"
+          correct: true
+          feedback: Correct
+        - answer: "38"
+          correct: false
+          feedback: Incorrect
+        - answer: "25"
+          correct: false
+          feedback: Incorrect
+        - answer: "67"
+          correct: false
+          feedback: Incorrect
+        - answer: "58"
+          correct: false
+          feedback: Incorrect
+  locally_coalescent:
+    - question: >-
+        Which level of simplification creates all local trees with only coalescent nodes?
+      type: many_choice
+      answers:
+        - answer: "Full simplification (level 5)"
+          correct: true
+          feedback: Correct
+        - answer: "Removing non-coalescent nodes (level 4)"
+          correct: false
+          feedback: "Incorrect: this removes nodes which are not coalescent anywhere, but retains local segements of nodes which are not coalescent"
+        - answer: "Sample-resolve only"
+          correct: false
+          feedback: Incorrect
 
 Workbook1D:
   sites_and_mutations:
