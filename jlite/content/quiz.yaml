@@ -144,21 +144,27 @@ Workbook1B:
           correct: false
           feedback: >-
             The expected TMRCA is twice the effective population size.
-    - question: Why might an effective population size be a misleading number to quote?
+    - question: Why might it be problematic to quote a single effective population size (Ne)?
       type: many_choice
       answers:
-        - answer: "XXX"
+        - answer: "Ne is usually much larger than the census population size"
+          correct: false
+          feedback: >-
+            Incorrect. If anything, the opposite is true. Nevertheless a common misconception is
+            to interpret Ne as similar to the census population size, although the two are not directly comparable.
+        - answer: "The human population size has been extremely variable over time"
           correct: true
           feedback: >-
-            xxx.
-        - answer: "YYY"
+            Correct. A single number is unlikely to capture the complexity of human demographic change.
+        - answer: "Changes in population subdivision can cause changes in apparent Ne over time"
+          correct: true
+          feedback: >-
+            Correct. Later we will use the more accurate 'inverse instantaneous coalescent rate' (IICR) instead,
+            to avoid implying that changes may be caused by changes in population size.
+        - answer: "Humans are not panmictic"
           correct: false
           feedback: >-
-            yyyyy
-        - answer: "ZZZZ"
-          correct: false
-          feedback: >-
-            zzzzz.
+            It's true that humans are not panmictic, but Ne is simply meant to compare to an equivalent panmictic population.
   Human_mu_TRMCA:
     - question: How many sample nodes (sample genomes) are there in the tree sequence?
       type: numeric
@@ -415,7 +421,7 @@ Workbook1D:
       answers:
         - type: value
           correct: true
-          value: 26
+          value: 3
           feedback: correct
         - type: default
           feedback: >-
@@ -428,6 +434,8 @@ Workbook1D:
           correct: true
           value: 1
           feedback: "Correct. It's possible to have more than one mutatation, but it's unlikely"
+        - type: default
+          feedback: "Incorrect"
     - question: >-
         Which node is the mutation above?
       type: numeric
@@ -437,16 +445,54 @@ Workbook1D:
           value: 12
           feedback: Correct.
     - question: >-
-        Which sample nodes have inherited an A at the first variable site
+        Which sample nodes have inherited an A at the first variable site?
       type: many_choice
       answers:
         - answer: "Nodes 7, 8, and 9"
           correct: true
           feedback: >-
-            xxx.
+            Correct: they lie under the mutation on the tree.
         - answer: "Nodes 0, 3, and 6"
           correct: false
         - answer: "Node 17 only"
+          correct: false
+  last_haplotype:
+    - question: >-
+        What is the allele at the last position of sample node 9?
+      type: many_choice
+      answers:
+        - answer: "T"
+          correct: true
+          feedback: >-
+            Correct.
+        - answer: "A"
+          correct: false
+        - answer: "C"
+          correct: false
+        - answer: "G"
+          correct: false
+  diversity:
+    - question: >-
+        What is the average sitewise diversity of this swept tree sequence (to 3 sig figures)?
+      type: numeric
+      precision: 6
+      answers:
+        - value: 0.000356
+          correct: true
+          feedback: Correct.
+  mut_rate:
+    - question: >-
+        Which plotted mutation rate is closest to the branch length diversity?
+      answers:
+        - answer: "1e-7"
+          correct: true
+          feedback: >-
+            Correct: the higher the mutation rate, the closer the site statistics are to the branch-length equivalents.
+        - answer: "1e-8"
+          correct: false
+        - answer: "1e-9"
+          correct: false
+        - answer: "1e-10"
           correct: false
 
 Workbook1E:
