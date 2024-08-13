@@ -2,13 +2,17 @@ import collections
 import itertools
 import os
 import sys
+import subprocess
+import tempfile
 from datetime import datetime
 
 import networkx as nx
 import numpy as np
 import tqdm
 import tskit
+import pysam
 import yaml
+from Bio import bgzf
 from IPython.core.display import HTML
 from jupyterquiz import display_quiz
 from matplotlib import collections as mc
@@ -579,3 +583,15 @@ def mutation_labels(ts):
         )
         mut_labels[mut.id] = label.format(prev, site.position, mut.derived_state)
     return mut_labels
+
+
+def ts2vcz(ts, zarr_file_name):
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        vcf_name = os.path.join(tmpdirname, zarr_file_name.replace("/", "") + ".vcf.gz")
+        with bgzf.open(vcf_name, "wt") as f:
+            ts.write_vcf(f)
+        pysam.tabix_index(vcf_name, preset="vcf")
+        try:
+            subprocess.run([sys.executable, "-m", "bio2zarr", "vcf2zarr", "convert", vcf_name, zarr_file_name])
+        except FileNotFoundError:
+            print("Please install bio2zarr to convert VCF to Zarr")
