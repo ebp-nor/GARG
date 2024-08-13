@@ -41,7 +41,7 @@ Workbook1A:
           correct: false
           feedback: >-
             Incorrect! Nodes don't have any concept of genomic extent or length.
-            That information is stored in the edges table.
+            That information is stored in the edges table. 
     - question: >-
         What does each edge (i.e. row of the edge table) represent in <em>tskit</em>?
       type: many_choice
@@ -116,7 +116,7 @@ Workbook1B:
           feedback: Correct
   expected_tmrca:
     - question: >-
-        What is the expected mean TMRCA value (given that Ne is 10 above)?
+        What is the expected mean TMRCA value (given that the diploid population size N=10 above)?
       type: numeric
       answers:
         - type: value
@@ -131,13 +131,11 @@ Workbook1B:
         - answer: "~30 000 generations"
           correct: true
           feedback: >-
-            Yes, it's simply 2 Ne.
+            Yes, it's simply twice the diploid population size.
         - answer: "~810 000 years"
           correct: true
           feedback: >-
-            Correct, assuming a generation time of 27 years (as per recent studies). Modern humans are
-            thought to have emerged around 300 000 years ago: an average divergence nearly 3 times older,
-            almost a million years ago, might seem surprising.
+            Correct, assuming a generation time of 27 years (as per recent studies).  
         - answer: "~30 000 years"
           correct: false
           feedback: >-
@@ -189,29 +187,46 @@ Workbook1B:
           value: 990000
           feedback: Correct.
   mean_tmrca:
-    - question: The mean TMRCA for n=2 samples is 2 Ne. The root_time above measures the TMRCA for n=40 samples.
-        What is a reasonable approximation for the mean TMRCA in this case (as n gets large)
+    - question: The mean TMRCA for n=2 samples is twice the population size. The root_time above measures the TMRCA for n=40 samples.
+        What is a reasonable approximation for the mean TMRCA in this case (i.e. as n gets large)
       type: many_choice
       answers:
-        - answer: "roughly 4 Ne"
+        - answer: "roughly 4 times the population size"
           correct: true
           feedback: >-
-            Yes, this is the expected value as the number of samples tends to infinity. In other words
+            Yes: this is the expected value as the number of samples tends to infinity. In other words
             as you increase the number of samples past 2, you only expect to double the mean TMRCA.
-        - answer: "roughly Ne"
+        - answer: "roughly the same as the population size"
           correct: false
           feedback: >-
             Incorrect: as you increase the number of samples, the mean MRCA for all samples should increase
-        - answer: "roughly 40 Ne"
+        - answer: "roughly 40 times the population size"
           correct: false
         - answer: "As n increases to infinity, the mean TMRCA will also increase to infinity"
           correct: false
           feedback: >-
             Incorrect: the mean TMRCA increases, but rapidly approaches a limit.
+  additional_samples:
+    - question: Coalescent nodes are the main source of genetic information about historical processes. Which of the following is true?
+      type: many_choice
+      answers:
+        - answer: "A small sample of DNA sequences will mostly contain information about the distant past (of the order of Ne
+ generations ago)"
+          correct: true
+          feedback: Correct
+        - answer: "To analyse the distant past in more detail is likely to require more genetic data from the same individuals (e.g. whole genome data), rather than data from more samples"
+          correct: true
+          feedback: Correct
+        - answer: "Adding more individuals to a dataset will tend to add more and more information about the recent, rather than the distant past"
+          correct: true
+          feedback: Correct
+        - answer: "Adding more samples to a genetic dataset is particularly useful in illuminating the distant past"
+          correct: false
+          feedback: "Incorrect: adding more samples tends to add more information about the recent, not distant past"
 Workbook1C:
   expected_tmrca:
     - question: >-
-        How many local trees are there ?
+        How many local trees are there?
       type: numeric
       answers:
         - type: value
@@ -222,7 +237,7 @@ Workbook1C:
           feedback: >-
             Try again (hint, use ts.edges_child)
     - question: >-
-        What is the MRCA of all the samples at the last genomic position? ;
+        What is the MRCA of all the samples at the last genomic position?
       type: numeric
       answers:
         - type: value
