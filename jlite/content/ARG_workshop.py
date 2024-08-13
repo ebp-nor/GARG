@@ -446,20 +446,27 @@ def edge_plot(
     linewidths=1,
     plot_hist=False,
     xaxis=True,
+    width=None,
+    height=None,
     **kwargs,
 ):
     """
     Plot the edges in a tree sequence,
     """
+
+    if width is not None or height is not None:
+        default = plt.rcParams["figure.figsize"]
+        sz = {"figsize": (width or default[0], height or default[1])}
+    else:
+        sz = {}
     if ax is None:
         if plot_hist:
             fig, (ax, ax_hist) = plt.subplots(
-                1, 2, gridspec_kw={"width_ratios": [3, 1]}, sharey=True
+                1, 2, gridspec_kw={"width_ratios": [5, 1]}, sharey=True, **sz
             )
         else:
-            ax = plt.gca()
+            fig, ax = plt.subplots(1, 1, **sz)
             ax_hist = None
-
     tm = (
         ts.nodes_time[ts.edges_child]
         if use_child_time

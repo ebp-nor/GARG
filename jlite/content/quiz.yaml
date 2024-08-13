@@ -348,10 +348,64 @@ Workbook1C:
           feedback: Correct
         - answer: "Removing non-coalescent nodes (level 4)"
           correct: false
-          feedback: "Incorrect: this removes nodes which are not coalescent anywhere, but retains local segements of nodes which are not coalescent"
+          feedback: "Incorrect: this removes nodes which are not coalescent anywhere, but retains 'locally unary' tree nodes (i.e. trees in which some nodes have only one child)"
         - answer: "Sample-resolve only"
           correct: false
           feedback: Incorrect
+  backward_time:
+    - question: >-
+        What are the main advantage for simulating backward-in-time?
+      type: many_choice
+      answers:
+        - answer: "You can efficiently simulate a smaller sample from a large population"
+          correct: true
+          feedback: Correct
+        - answer: "You avoid the need to simulate lineages that go extinct"
+          correct: true
+          feedback: Correct
+        - answer: "You can easily simulate selection"
+          correct: false
+          feedback: "Incorrect: simulate is hard to simulate backward-in-time"
+        - answer: "You can ensure that all sample nodes coalescence"
+          correct: true
+          feedback: "Correct. In a ARG we usually only need to make sure that LOCAL coalescence is reached (i.e. that each local tree has a single root)"
+  large_sim:
+    - question: >-
+        It shouldn't have taken that long to simulate a million 1Mb genomes. Roughly how much space is taken up by the resulting tree sequence?
+      type: many_choice
+      answers:
+        - answer: "About 150MB"
+          correct: true
+          feedback: Correct
+        - answer: "About 1GB"
+          correct: false
+          feedback: "Incorrect"
+        - answer: "About 150GB"
+          correct: false
+          feedback: Incorrect
+  diamonds:
+    - question: >-
+        How many "diamonds" are there in the msprime-simulated "full ARG" above?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 3
+          feedback: Correct
+        - type: default
+          feedback: >-
+            Incorrect: look at the number of self-contained "loops"
+    - question: >-
+        How many "super diamonds" are there in the msprime-simulated "full ARG" above?
+      type: numeric
+      answers:
+        - type: value
+          correct: true
+          value: 0
+          feedback: Correct
+        - type: default
+          feedback: >-
+            Incorrect: (a bit of a trick question, as there aren't any here)"
 
 Workbook1D:
   sites_and_mutations:
