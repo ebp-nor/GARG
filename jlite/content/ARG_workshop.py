@@ -499,7 +499,7 @@ def partial_simplify(
     ts,
     samples=None,
     *args,
-    remove_all_locally_unary=None,
+    remove_non_coalescent_nodes=None,
     keep_unary_in_individuals=None,
     map_nodes=None,
     filter_individuals=None,
@@ -520,7 +520,7 @@ def partial_simplify(
     # to a new individual
     fake_individual = tables.individuals.add_row()
     keep_nodes = np.zeros(ts.num_nodes, dtype=bool)
-    if remove_all_locally_unary:
+    if remove_non_coalescent_nodes:
         _, node_map = ts.simplify(samples, map_nodes=True)  # retains coalescent nodes
         keep_nodes[np.where(node_map != tskit.NULL)] = True
     else:
