@@ -420,6 +420,10 @@ def draw_pedigree(
     pos = nx.multipartite_layout(
         G, subset_key="time", align="horizontal", scale=maxtime
     )
+    if nx.__version__ == "3.1":
+        for coords in pos.values():
+            if coords[1] < -2 and coords[1] > -6:
+                coords[0] = -coords[0]
     nx.draw_networkx(G, pos, with_labels=False, ax=ax, **kwargs)
     labels = {i.id: "\n".join(str(u) for u in i.nodes) for i in ped_ts.individuals()}
     nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=font_size)
