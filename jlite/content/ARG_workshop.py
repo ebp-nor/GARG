@@ -10,9 +10,8 @@ import networkx as nx
 import numpy as np
 import tqdm
 import tskit
-import pysam
 import yaml
-from Bio import bgzf
+import zarr
 from IPython.core.display import HTML
 from jupyterquiz import display_quiz
 from matplotlib import collections as mc
@@ -586,12 +585,18 @@ def mutation_labels(ts):
 
 
 def ts2vcz(ts, zarr_file_name):
+    # Add imports in here as we don't need them for jupyterlite
+    import pysam
+    from Bio import bgzf
     with tempfile.TemporaryDirectory() as tmpdirname:
         vcf_name = os.path.join(tmpdirname, zarr_file_name.replace("/", "") + ".vcf.gz")
         with bgzf.open(vcf_name, "wt") as f:
             ts.write_vcf(f)
         pysam.tabix_index(vcf_name, preset="vcf")
         try:
-            subprocess.run([sys.executable, "-m", "bio2zarr", "vcf2zarr", "convert", vcf_name, zarr_file_name])
+            subprocess.run([sys.executable, "-m", "bio2zarr", "vcf2zarr", "convert", "--force", vcf_name, zarr_file_name])
         except FileNotFoundError:
             print("Please install bio2zarr to convert VCF to Zarr")
+        # set sequence length to match
+        z = zarr.open(zarr_file_name)
+        z.attrs["sequence_length"] = ts.sequence_length
