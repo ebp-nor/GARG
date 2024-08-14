@@ -278,7 +278,7 @@ Workbook1C:
           feedback: >-
             Try again (hint, use ts_high_recomb.num_trees)
     - question: >-
-        How many local trees are there in the original high recombination simulation?
+        How many local trees are there in the simplified high recombination simulation?
       type: numeric
       answers:
         - type: value
