@@ -360,7 +360,7 @@ Workbook1C:
           feedback: Incorrect
   backward_time:
     - question: >-
-        What are the main advantage for simulating backward-in-time?
+        What are the main advantages of simulating backward-in-time?
       type: many_choice
       answers:
         - answer: "You can efficiently simulate a smaller sample from a large population"
