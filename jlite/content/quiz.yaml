@@ -496,7 +496,7 @@ Workbook1D:
           correct: false
   Fst:
     - question: >-
-        What is the site-based Fst between populations 0 and 3?
+        What is the site-based Fst between populations 0 and 3, to 4 decimal places?
       type: numeric
       precision: 4
       answers:
@@ -504,13 +504,36 @@ Workbook1D:
           correct: true
           feedback: Correct.
     - question: >-
-        What is the branch-based Fst between populations 0 and 3?
+        What is the branch-based Fst between populations 0 and 3, to 4 decimal places?
       type: numeric
       precision: 4
       answers:
         - value: 0.0266
           correct: true
           feedback: Correct.
+  multiple_muts:
+    - question: >-
+        The last variable site has been highlighted in red, How many mutations are there at this site?
+      type: numeric
+      answers:
+        - value: 3
+          correct: true
+          feedback: Correct.
+    - question: >-
+        What allele does sample node 1 have at the last variable site?
+      type: many_choice
+      answers:
+        - answer: "C"
+          correct: true
+          feedback: >-
+            Correct.
+        - answer: "A"
+          correct: false
+        - answer: "T"
+          correct: false
+        - answer: "G"
+          correct: false
+
 
 Workbook1E:
   gnn:
