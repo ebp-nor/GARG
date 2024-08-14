@@ -483,6 +483,7 @@ Workbook1D:
   mut_rate:
     - question: >-
         Which plotted mutation rate is closest to the branch length diversity?
+      type: many_choice
       answers:
         - answer: "1e-7"
           correct: true
@@ -574,3 +575,6 @@ Workbook1E:
             CEU has 50% YRI, 50% CEU, 0% CHB. YRI has 50% YRI, 50%
             CEU, 0% CHB.
           correct: false
+
+Workbook2A:
+
