@@ -278,7 +278,7 @@ Workbook1C:
           feedback: >-
             Try again (hint, use ts_high_recomb.num_trees)
     - question: >-
-        How many local trees are there in the original high recombination simulation?
+        How many local trees are there in the simplified high recombination simulation?
       type: numeric
       answers:
         - type: value
@@ -494,6 +494,23 @@ Workbook1D:
           correct: false
         - answer: "1e-10"
           correct: false
+  Fst:
+    - question: >-
+        What is the site-based Fst between populations 0 and 3?
+      type: numeric
+      precision: 4
+      answers:
+        - value: 0.0253
+          correct: true
+          feedback: Correct.
+    - question: >-
+        What is the branch-based Fst between populations 0 and 3?
+      type: numeric
+      precision: 4
+      answers:
+        - value: 0.0266
+          correct: true
+          feedback: Correct.
 
 Workbook1E:
   gnn:

@@ -6,14 +6,14 @@ import subprocess
 import tempfile
 from datetime import datetime
 
+import msprime
 import networkx as nx
 import numpy as np
 import pandas as pd
 import tqdm
 import tskit
-import pysam
 import yaml
-from Bio import bgzf
+import zarr
 from IPython.core.display import HTML
 from jupyterquiz import display_quiz
 from matplotlib import collections as mc
@@ -192,7 +192,17 @@ class Workbook1C(Workbook):
 class Workbook1D(Workbook):
     def __init__(self):
         super().__init__()
-
+        # The Fst quiz gives different answers between jlite and others, so we need to adjust it here
+        pop_sizes = [3e4, 2e4, 3e4, 1e4, 10e4]  # pick some variable sizes for each population 
+        model = msprime.Demography.stepping_stone_model(pop_sizes, migration_rate=0.001, boundaries=True)
+        # sample the same number from each pop
+        samples = {'pop_0': 6, 'pop_1': 6, 'pop_2': 6, 'pop_3': 6, 'pop_4': 6}
+        base_ts = msprime.sim_ancestry(samples, sequence_length=1e6, demography=model, recombination_rate=1e-8, random_seed=1)
+        ts = msprime.sim_mutations(base_ts, rate=1e-8, random_seed=1)
+        ans1 = ts.Fst([ts.samples(population=0), ts.samples(population=3)])
+        ans2 = ts.Fst([ts.samples(population=0), ts.samples(population=3)], mode="branch")
+        self.quiz["Fst"][0]["answers"][0]["value"] = f"{ans1:.4f}"
+        self.quiz["Fst"][1]["answers"][0]["value"] = f"{ans2:.4f}"
 
 class Workbook1E(Workbook):
     def __init__(self):
@@ -422,6 +432,10 @@ def draw_pedigree(
     pos = nx.multipartite_layout(
         G, subset_key="time", align="horizontal", scale=maxtime
     )
+    if nx.__version__ == "3.1":
+        for coords in pos.values():
+            if coords[1] < -2 and coords[1] > -6:
+                coords[0] = -coords[0]
     nx.draw_networkx(G, pos, with_labels=False, ax=ax, **kwargs)
     labels = {i.id: "\n".join(str(u) for u in i.nodes) for i in ped_ts.individuals()}
     nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=font_size)
@@ -728,13 +742,18 @@ def haplotype_gnn(
 
 
 def ts2vcz(ts, zarr_file_name):
+    # Add imports in here as we don't need them for jupyterlite
+    import pysam
+    from Bio import bgzf
     with tempfile.TemporaryDirectory() as tmpdirname:
         vcf_name = os.path.join(tmpdirname, zarr_file_name.replace("/", "") + ".vcf.gz")
         with bgzf.open(vcf_name, "wt") as f:
             ts.write_vcf(f)
         pysam.tabix_index(vcf_name, preset="vcf")
         try:
-            subprocess.run([sys.executable, "-m", "bio2zarr", "vcf2zarr", "convert", vcf_name, zarr_file_name])
+            subprocess.run([sys.executable, "-m", "bio2zarr", "vcf2zarr", "convert", "--force", vcf_name, zarr_file_name])
         except FileNotFoundError:
             print("Please install bio2zarr to convert VCF to Zarr")
-
+        # set sequence length to match
+        z = zarr.open(zarr_file_name)
+        z.attrs["sequence_length"] = ts.sequence_length
