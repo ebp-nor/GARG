@@ -360,7 +360,7 @@ Workbook1C:
           feedback: Incorrect
   backward_time:
     - question: >-
-        What are the main advantage for simulating backward-in-time?
+        What are the main advantages of simulating backward-in-time?
       type: many_choice
       answers:
         - answer: "You can efficiently simulate a smaller sample from a large population"
@@ -483,6 +483,7 @@ Workbook1D:
   mut_rate:
     - question: >-
         Which plotted mutation rate is closest to the branch length diversity?
+      type: many_choice
       answers:
         - answer: "1e-7"
           correct: true
@@ -574,3 +575,60 @@ Workbook1E:
             CEU has 50% YRI, 50% CEU, 0% CHB. YRI has 50% YRI, 50%
             CEU, 0% CHB.
           correct: false
+
+Workbook2A:
+  chimp_demography:
+    - question: |
+        Which model population has the largest overall population size?
+      type: many_choice
+      answers:
+        - answer: "The ghost population"
+          correct: false
+        - answer: "Bonobos"
+          correct: false
+        - answer: "Central chimpanzees"
+          correct: true
+        - answer: "Western chimpanzees"
+          correct: false
+    - question: |
+        Which model population shrank to a small bottleneck before expanding again to its current size?
+      type: many_choice
+      answers:
+        - answer: "The ghost population"
+          correct: false
+        - answer: "Bonobos"
+          correct: true
+        - answer: "Central chimpanzees"
+          correct: false
+        - answer: "Western chimpanzees"
+          correct: false
+  edge_plot:
+    - question: |
+        What are the main issues to be aware of when looking at the edge plot?
+      type: many_choice
+      answers:
+        - answer: "Edges will only represent coalescent events if the tree sequence is fully simplified"
+          correct: true
+        - answer: "The distribution of the density of lines will be dependent on the sample size"
+          correct: true
+        - answer: "Demographic events do not affect edge densities"
+          correct: false
+          feedback: |
+            Incorrect: the horizontal lines in the plot are likely to represent demographic events such as bottlenecks,
+            although the overall density distribution may be confounded with the effects of sample size
+        - answer: "Edge densities will not reflect natural selection"
+          correct: false
+          feedback: |
+            Clearly false: the effects of the two selective sweeps are very visible in the edge plot
+  heatmap:
+    - question: |
+        What is the primary advantage of plotting the pairwise instantaneous coalescent rate?
+      type: many_choice
+      answers:
+        - answer: "The expected distributions are independent of the sample size"
+          correct: true
+        - answer: "They accurately reflect the census population size"
+          correct: false
+          feedback: |
+            Incorrect: the inverse instantneous coalescent rate (IICR) is a measure of Ne over time
+            but that can reflect differences in population structure as well as census population size.
