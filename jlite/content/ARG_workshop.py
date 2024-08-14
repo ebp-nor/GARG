@@ -469,7 +469,8 @@ def edge_plot(
     **kwargs,
 ):
     """
-    Plot the edges in a tree sequence,
+    Plot the edges in a tree sequence. If ax is None, make a new plot, if it is a tuple,
+    use the second ax for a histogram
     """
 
     if width is not None or height is not None:
@@ -477,6 +478,7 @@ def edge_plot(
         sz = {"figsize": (width or default[0], height or default[1])}
     else:
         sz = {}
+    ax_hist = None
     if ax is None:
         if plot_hist:
             fig, (ax, ax_hist) = plt.subplots(
@@ -484,7 +486,11 @@ def edge_plot(
             )
         else:
             fig, ax = plt.subplots(1, 1, **sz)
-            ax_hist = None
+    else:
+        try:
+            ax, ax_hist = ax
+        except TypeError:
+            pass
     tm = (
         ts.nodes_time[ts.edges_child]
         if use_child_time
