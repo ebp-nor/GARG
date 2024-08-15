@@ -20,18 +20,14 @@ library(toastui)
 #| echo: false
 #| eval: true
 #| cache: false
-ci <- Sys.getenv("CI", unset = "false")
-if (ci == "false") {
-  host <- "ebp-nor"
-} else {
-  host <- Sys.getenv("GITHUB_ACTOR")
-}
+host <- "ebp-nor"
 server <- "jlite/notebooks/index.html?path="
 colabhost <- paste0(
   "https://colab.research.google.com/github/",
   host, "/GARG/blob/main/jlite/content/"
 )
 drivehost <- "https://drive.google.com/uc?export=copy&id="
+githubhost <- "https://raw.githubusercontent.com/ebp-nor/GARG/main/jlite/content/"
 ```
 
 ```{r }
