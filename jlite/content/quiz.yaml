@@ -41,7 +41,7 @@ Workbook1A:
           correct: false
           feedback: >-
             Incorrect! Nodes don't have any concept of genomic extent or length.
-            That information is stored in the edges table. 
+            That information is stored in the edges table.
     - question: >-
         What does each edge (i.e. row of the edge table) represent in <em>tskit</em>?
       type: many_choice
@@ -135,7 +135,7 @@ Workbook1B:
         - answer: "~810 000 years"
           correct: true
           feedback: >-
-            Correct, assuming a generation time of 27 years (as per recent studies).  
+            Correct, assuming a generation time of 27 years (as per recent studies).
         - answer: "~30 000 years"
           correct: false
           feedback: >-
@@ -632,3 +632,26 @@ Workbook2A:
           feedback: |
             Incorrect: the inverse instantneous coalescent rate (IICR) is a measure of Ne over time
             but that can reflect differences in population structure as well as census population size.
+
+Workbook2D:
+  metadata:
+    - question: |
+        What does the individuals_population variable store?
+      type: many_choice
+      answers:
+        - answer: "The mapping from individual to population"
+          correct: true
+        - answer: "The number of individuals in a population"
+          correct: false
+    - question: |
+        What is the population of individual with array index 1?
+      type: many_choice
+      answers:
+        - answer: iago
+          correct: true
+        - answer: nearest_house
+          correct: false
+        - answer: italian_island
+          correct: false
+        - answer: spanish
+          correct: false
