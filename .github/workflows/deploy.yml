@@ -36,8 +36,8 @@ jobs:
 
       - name: Install the dependencies
         run: |
-          which python
           pip install -r jlite/requirements.txt
+          pip install libarchive-c
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -46,8 +46,9 @@ jobs:
 
       - name: Render Quarto pages
         run: |
-          which python
           quarto render --to html
+          # Check that files are there
+          ls _site/jlite/files
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
