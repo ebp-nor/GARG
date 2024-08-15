@@ -2,7 +2,8 @@
   "LiteBuildConfig": {
     "extra_ignore_contents": [
       "/\\.virtual_documents",
-      "/data/"
+      "/phased_vcfs_100624/",
+      "/chr8.vcz/"
     ]
   }
 }
