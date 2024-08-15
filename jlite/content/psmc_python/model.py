@@ -1,6 +1,6 @@
 import numpy as np
 from numba import jit, njit
-from psmc.utils import maxmul
+from .utils import maxmul
 from scipy.optimize import minimize
 import json
 
