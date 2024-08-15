@@ -20,23 +20,15 @@ suggested readings.
 
 ### Workbooks
 
-The workbooks can be run either as a
+The exercise workbooks have been prepared as [Jupyter
+notebooks](https://jupyter.org/). The workbooks can be run either as a
 [JupyterLite](https://jupyterlite.readthedocs.io/en/stable/) instance
 or in [Google Colab](https://colab.research.google.com/). Keep in mind
 that you need a Google account to run the Colab exercies. Run the
 HOWTO first (it takes 5-10 minutes), preferably in both engines, to
 make sure everything works as expected and you understand the format
-of the workbooks.
-
-::: {.callout-important}
-
-The Google Drive link below is temporary and points directly to the
-Notebook version on Google Drive. The link will download a copy of the
-notebook. Navigate to <https://colab.research.google.com> and click
-"Upload" to upload the downloaded notebook, edit and save in your own
-Google Drive.
-
-:::
+of the workbooks. There is also a link to download the workbooks in
+which case you need a Jupyter installation on your computer to run.
 
 ```{r }
 #| label: r-list-workbooks
@@ -56,9 +48,9 @@ workbooks <- data.frame(
     "HOWTO.ipynb",
     "python_intro.ipynb"
   ),
-  link_lab_drive = c(
-    "1-6e6klPF5pi9DNuco4-zougklOVEcTZ1",
-    "1vO-8rRNTfF8Hcx0MdUyMBhUW4C1gU54D"
+  link_lab_download = c(
+    "HOWTO.ipynb",
+    "python_intro.ipynb"
   )
 )
 
@@ -92,26 +84,26 @@ workbooks_md <- workbooks %>%
       )
     )
   )) %>%
-  dplyr::mutate(link_lab_drive = ifelse(
-    is.na(link_lab_drive), NA,
+  dplyr::mutate(link_lab_download = ifelse(
+    is.na(link_lab_download), NA,
     gsub(
       ",", "",
       gsub(
-        "([^,]+)",
-        paste0(
-          " **[{{< fa brands google-drive >}}](",
-          drivehost, "\\1)**"
-        ),
-        link_lab_drive
+          "([^,]+)",
+          paste0(
+              " **[{{< fa computer >}}](",
+              githubhost, "\\1)**"
+          ),
+          link_lab_download
       )
     )
-  ))
+    ))
 
 cat(
   print(kable(workbooks_md,
     format = "pipe", escape = FALSE,
     row.names = FALSE,
-    col.names = c("Topic", "JupyterLite", "Google Colab", "Google Drive")
+    col.names = c("Topic", "JupyterLite", "Google Colab", "Download (right-click)")
   )),
   "\n\n: {.hover .condensed .responsive tbl-colwidths=\"[55, 15, 15, 15]\"}\n\n"
 )
