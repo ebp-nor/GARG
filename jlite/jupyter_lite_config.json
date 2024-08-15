@@ -1,0 +1,8 @@
+{
+  "LiteBuildConfig": {
+    "extra_ignore_contents": [
+      "/\\.virtual_documents",
+      "/data/"
+    ]
+  }
+}
