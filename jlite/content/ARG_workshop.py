@@ -215,6 +215,16 @@ class Workbook1F(Workbook):
         super().__init__()
 
 
+class Workbook2A(Workbook):
+    def __init__(self):
+        super().__init__()
+
+
+class Workbook2B(Workbook):
+    def __init__(self):
+        super().__init__()
+
+
 class Workbook2D(Workbook):
     def __init__(self):
         super().__init__()
