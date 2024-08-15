@@ -19,6 +19,7 @@ from jupyterquiz import display_quiz
 from matplotlib import collections as mc
 from matplotlib import pyplot as plt
 
+
 path = os.path.dirname(os.path.normpath(__file__))
 
 
@@ -210,6 +211,11 @@ class Workbook1E(Workbook):
 
 
 class Workbook1F(Workbook):
+    def __init__(self):
+        super().__init__()
+
+
+class Workbook2D(Workbook):
     def __init__(self):
         super().__init__()
 
