@@ -633,6 +633,19 @@ Workbook2A:
             Incorrect: the inverse instantneous coalescent rate (IICR) is a measure of Ne over time
             but that can reflect differences in population structure as well as census population size.
 
+Workbook2B:
+  smc:
+    - question: |
+        What is the Sequentially Markovian Coalescent (SMC) approximation?
+      type: many_choice
+      answers:
+        - answer: "XXX"
+          correct: false
+        - answer: "YYY"
+          correct: false
+        - answer: "ZZZ"
+          correct: true
+
 Workbook2D:
   metadata:
     - question: |
@@ -655,3 +668,4 @@ Workbook2D:
           correct: false
         - answer: spanish
           correct: false
+
