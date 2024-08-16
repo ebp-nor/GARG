@@ -665,6 +665,23 @@ Workbook2A:
           correct: false
         - answer: "The mutation rate over time"
           correct: false
+  topology_count:
+    - question: >-
+        What percentage (to the nearest integer) of the genome supports grouping central and western chimps together in this genealogy?
+      type: numeric
+      precision: 0
+      answers:
+        - value: 99
+          correct: true
+          feedback: Correct.
+    - question: >-
+        How many total embedded topologies have been counted?
+      type: numeric
+      precision: 0
+      answers:
+        - value: 2119424000
+          correct: true
+          feedback: Correct.
 
 Workbook2B:
   smc:
