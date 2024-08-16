@@ -576,6 +576,52 @@ Workbook1E:
             CEU, 0% CHB.
           correct: false
 
+Workbook1F:
+  neutral_locus:
+    - question: |
+        The populations roughly form three groups. What is true
+        regarding the branch lengths of bonobo (orange) compared to
+        the other populations?
+      type: many_choice
+      answers:
+        - answer: |
+            They are roughly equal.
+          correct: true
+          feedback: |
+            Correct! Since the locus is evolving neutrally in all
+            populations, all trees should have similar coalescence
+            patterns, reflected by similar branch lengths. There may
+            of course be large variation, but here there is no
+            discernible difference.
+        - answer: |
+            The branch lengths of western and central populations are
+            longer
+          correct: false
+        - answer: |
+            The branch lengths of bonobo are longer
+          correct: false
+  sweep_locus:
+    - question: |
+        At the sweep locus, what is true regarding the branch lengths
+        of bonobo (orange) compared to the other populations?
+      type: many_choice
+      answers:
+        - answer: |
+            They are smaller.
+          correct: true
+          feedback: |
+            Correct! The selective sweep in bonobo means a mutation
+            has spread quickly in the population, leaving the
+            characteristic pattern of rapid coalescence manifested as
+            shorter branch lengths.
+        - answer: |
+            The branch lengths are roughly equal
+          correct: false
+        - answer: |
+            The branch lengths of bonobo are longer
+          correct: false
+            
+          
 Workbook2A:
   chimp_demography:
     - question: |

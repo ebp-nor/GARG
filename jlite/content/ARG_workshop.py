@@ -747,13 +747,13 @@ def windowed_genealogical_nearest_neighbours(
 
 def haplotype_gnn(
     ts,
-    focal_node,
+    focal_ind,
     windows,
     group_sample_sets,
 ):
     """Calculate the haplotype genealogical nearest neighbours (GNN)
-    for a focal node (=sample)"""
-    ind = ts.individual(ts.node(focal_node).individual)
+    for the haplotypes of a focal individual"""
+    ind = ts.individual(focal_ind)
     A = windowed_genealogical_nearest_neighbours(
         ts, ind.nodes, group_sample_sets, windows=windows
     )
