@@ -620,18 +620,51 @@ Workbook2A:
           correct: false
           feedback: |
             Clearly false: the effects of the two selective sweeps are very visible in the edge plot
-  heatmap:
+  sweeps:
+    - question: |
+        Which population had a selective sweep on the LEFT hand side of the genome?
+      type: many_choice
+      answers:
+        - answer: "Bonobos"
+          correct: true
+        - answer: "Central chimpanzees"
+          correct: false
+        - answer: "Western chimpanzees"
+          correct: false
+    - question: |
+        Which population had a selective sweep on the RIGHT hand side of the genome?
+      type: many_choice
+      answers:
+        - answer: "Bonobos"
+          correct: false
+        - answer: "Central chimpanzees"
+          correct: false
+        - answer: "Western chimpanzees"
+          correct: true
+  ICR:
     - question: |
         What is the primary advantage of plotting the pairwise instantaneous coalescent rate?
       type: many_choice
       answers:
-        - answer: "The expected distributions are independent of the sample size"
+        - answer: "The expected distribution is independent of the sample size"
           correct: true
-        - answer: "They accurately reflect the census population size"
+        - answer: "The rate accurately reflects the census population size"
           correct: false
           feedback: |
             Incorrect: the inverse instantneous coalescent rate (IICR) is a measure of Ne over time
             but that can reflect differences in population structure as well as census population size.
+    - question: |
+        What is the an alternative intepretation of the Inverse ICR (IICR) over time?
+      type: many_choice
+      answers:
+        - answer: The 'effective population size' (Ne) over time
+          correct: true
+        - answer: "The census population size over time"
+          correct: false
+        - answer: "The migration rate over time"
+          correct: false
+        - answer: "The mutation rate over time"
+          correct: false
 
 Workbook2B:
   smc:
