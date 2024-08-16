@@ -1,5 +1,6 @@
 import collections
 import itertools
+import json
 import os
 import sys
 import subprocess
@@ -221,6 +222,11 @@ class Workbook2A(Workbook):
 
 
 class Workbook2B(Workbook):
+    def __init__(self):
+        super().__init__()
+
+
+class Workbook2C(Workbook):
     def __init__(self):
         super().__init__()
 
@@ -767,6 +773,9 @@ def ts2vcz(ts, zarr_file_name):
     # Add imports in here as we don't need them for jupyterlite
     import pysam
     from Bio import bgzf
+    if np.any(ts.nodes_individual[ts.samples()] == tskit.NULL):
+        raise ValueError("All samples must have an individual")
+    samples = set(ts.samples())
     with tempfile.TemporaryDirectory() as tmpdirname:
         vcf_name = os.path.join(tmpdirname, zarr_file_name.replace("/", "") + ".vcf.gz")
         with bgzf.open(vcf_name, "wt") as f:
@@ -779,3 +788,28 @@ def ts2vcz(ts, zarr_file_name):
         # set sequence length to match
         z = zarr.open(zarr_file_name)
         z.attrs["sequence_length"] = ts.sequence_length
+        if ts.num_populations > 0:
+            # add populations
+            schema = json.dumps(ts.table_metadata_schemas.population.schema).encode()
+            z["populations_metadata_schema"] = schema
+            metadata = []
+            for pop in ts.populations():
+                metadata.append(json.dumps(pop.metadata).encode())
+            z["populations_metadata"] = metadata
+        individual_population_array = []
+        individual_metadata_array = []
+        for ind in ts.individuals():
+            population = {ts.nodes_population[n] for n in ind.nodes if n in samples}
+            if len(population) > 1:
+                raise ValueError("Nodes in individuals must belong to a single population")
+            if len(population) == 1:
+                individual_population_array.append(population.pop())
+            if ind.metadata:
+                individual_metadata_array.append(json.dumps(ind.metadata).encode())
+            else:
+                individual_metadata_array.append(b"")
+        if len(individual_population_array) > 0:
+            schema = json.dumps(ts.table_metadata_schemas.individual.schema).encode()
+            z["individuals_metadata_schema"] = schema
+            z["individuals_population"] = individual_population_array
+            z["individuals_metadata"] = individual_metadata_array
