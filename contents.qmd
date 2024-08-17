@@ -99,7 +99,10 @@ You can access exercise content in several ways:
    a dedicated [conda environment](https://docs.anaconda.com/)):
    - (OPTIONAL): `conda create -n garg python=3.12`
    - `git clone https://github.com/ebp-nor/GARG.git`
-   - `cd GARG && python -m pip install .`
+   - `cd GARG && python -m pip install -r
+   https://github.com/ebp-nor/GARG/raw/main/jlite/requirements.txt`
+   and then you should be able to fire up JupyterLab with `jupyter
+   lab jlite/content`
 3. you can access all online JupyterLite content by navigating to the
    file browser view (<https://ebp-nor.github.io/GARG/jlite/tree>) or
    the JupyterLab view (<https://ebp-nor.github.io/GARG/jlite/lab>)
