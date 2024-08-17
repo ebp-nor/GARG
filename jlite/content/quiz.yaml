@@ -537,6 +537,61 @@ Workbook1D:
 
 
 Workbook1E:
+  msprime_demography:
+    - question: |
+        What is the growth rate of the Utah population at the time of
+        sampling (time 0)?
+      type: numeric
+      answer: 0.004
+    - question: |
+        What is the migration rate from the CHB to CEU population at
+        the time of sampling (time 0)?
+      type: numeric
+      answer: 1.9e-05
+    - question: |
+        What is the migration rate from the YRI to CEU population at
+        time=1000 generations ago?
+      type: numeric
+      answer: 0.00025
+    - question: |
+        What is the effect of the population parameter change at
+        time=848 generations ago?
+      type: many_choice
+      answers:
+        - answer: the CEU population growth rate is set to 0
+          correct: true
+        - answer: the CHB population growth rate is set to 0
+          correct: false
+        - answer: the YRI population growth rate is set to 0
+          correct: false
+  num_sites:
+    - question: |
+        How many segregating sites have been simulated?
+      type: numeric
+      answers:
+        - answer: 34482
+          correct: true
+  divergence:
+    - question: |
+        Which of the following is true?
+      type: many_choice
+      answers:
+
+        - answer: |
+            The divergence between the European and the African
+            population is higher than the divergence between the Out
+            of Africa populations
+          correct: true
+        - answer: |
+            The divergence between the European and the African
+            population is lower than the divergence between the Out
+            of Africa populations
+          correct: false
+        - answer: |
+            The divergence between the Out of Africa populations is
+            higher than the divergence between the European and the
+            African population
+          correct: false
   gnn:
     - question: |
         What are the GNN proportions of sample 3?
@@ -577,6 +632,17 @@ Workbook1E:
           correct: false
 
 Workbook1F:
+  msprime_demography:
+    - question: |
+        At what most recent time point is there a mass migration event
+        between the western and central populations?
+      type: numeric
+      answer: 4003
+    - question: |
+        At what most recent time point is there a mass migration event
+        between the western and central populations?
+      type: numeric
+      answer: 6202
   neutral_locus:
     - question: |
         The populations roughly form three groups. What is true

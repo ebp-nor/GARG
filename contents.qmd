@@ -1,6 +1,8 @@
 ---
-title: "Contents"
-description: "Course materials including presentations (slides) and practical exercises (labs)"
+title: Contents
+description: |
+  Course materials including presentations (slides) and practical
+  exercises (labs)
 toc: false
 date: ""
 sidebar: false
@@ -54,26 +56,54 @@ smkd <- s %>%
   dplyr::mutate(link_slide = ifelse(
     is.na(link_slide), NA,
     paste0("**[{{< fa file-powerpoint >}}](", link_slide, ")**")
-  )) %>%
-  dplyr::mutate(title = ifelse(is.na(link_slide),
-    title,
-    paste(title, link_slide)
-  )) %>%
-  dplyr::mutate(title = ifelse(is.na(link_lab_jlite),
-    title,
-    paste(title, link_lab_jlite)
-  )) %>%
-  dplyr::mutate(title = ifelse(is.na(link_lab_colab),
-    title,
-    paste(title, link_lab_colab)
-  ))
-```
+    )) %>%
+  dplyr::mutate(material = "") %>%
+  dplyr::mutate(material = ifelse(is.na(link_slide),
+                                  material,
+                                  paste(material, link_slide)
+                                  )) %>%
+  dplyr::mutate(material = ifelse(is.na(link_lab_jlite),
+                                  material,
+                                  paste(material, link_lab_jlite)
+                                  )) %>%
+  dplyr::mutate(material = ifelse(is.na(link_lab_colab),
+                                  material,
+                                  paste(material, link_lab_colab)
+                                  ))
+```                                  
+  <!-- dplyr::mutate(title = ifelse(is.na(link_slide), -->
+  <!--   title, -->
+  <!--   paste(title, link_slide) -->
+  <!-- )) %>% -->
+  <!-- dplyr::mutate(title = ifelse(is.na(link_lab_jlite), -->
+  <!--   title, -->
+  <!--   paste(title, link_lab_jlite) -->
+  <!-- )) %>% -->
+  <!-- dplyr::mutate(title = ifelse(is.na(link_lab_colab), -->
+  <!--   title, -->
+  <!--   paste(title, link_lab_colab) -->
+  <!-- )) -->
+
 
 ::: {.callout-note}
 
 The contents are being updated.
 
 :::
+
+You can access exercise content in several ways:
+
+1. click on the relevant icon links in the table below (see table
+   legend for explanation)
+2. clone the repo and install requirements (you may want to do this in
+   a dedicated [conda environment](https://docs.anaconda.com/)):
+   - (OPTIONAL): `conda create -n garg python=3.12`
+   - `git clone https://github.com/ebp-nor/GARG.git`
+   - `cd GARG && python -m pip install .`
+3. you can access all online JupyterLite content by navigating to the
+   file browser view (<https://ebp-nor.github.io/GARG/jlite/tree>) or
+   the JupyterLab view (<https://ebp-nor.github.io/GARG/jlite/lab>)
+   
 
 :::{.contents-table .column-body-outset}
 
@@ -82,11 +112,11 @@ The contents are being updated.
 #| echo: false
 #| eval: true
 #| results: asis
-cnames <- c("Date", "Title", "Topic", "Presenter")
+cnames <- c("Date", "Title", "Topic", "Material", "Presenter")
 tab <- smkd %>%
   dplyr::filter(title != "") %>%
   dplyr::filter(type %in% c("Talk", "Lab", "Seminar")) %>%
-  dplyr::select(c("date", "title", "body", "instructor")) %>%
+  dplyr::select(c("date", "title", "body", "material", "instructor")) %>%
   dplyr::mutate_all(~ ifelse(is.na(.), "", .)) %>%
   setNames(cnames[1:ncol(.)]) %>%
   dplyr::distinct()
@@ -98,10 +128,11 @@ tabby <- by(tab, tab$Date, function(x) {
 contents <- do.call(
   "rbind",
   lapply(names(tabby), function(date) {
-    x <- tabby[[date]][, 2:4]
+    x <- tabby[[date]][, 2:5]
     new_row <- tibble::tibble(
       Title = paste0("[**", date, "**]{.badge .badge-secondary}"),
       Topic = "",
+      Material = "",
       Presenter = ""
     )
     x <- rbind(new_row, x)
