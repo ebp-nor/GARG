@@ -48,6 +48,7 @@ tskit
 msprime
 tsinfer==0.4.0a1
 tsdate>=0.2.1
+numpy<2
 demesdraw
 seaborn
 jupyterquiz==2.7.0a2  # to fix https://github.com/jmshea/jupyterquiz/issues/20
