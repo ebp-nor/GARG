@@ -420,7 +420,7 @@ def basic_genealogy_viz(
     max_x = tables.nodes.time.max() + tweak_y * 3
     ax.set_ylim(None, max_x)
     ax.set_yticks(np.arange(tables.nodes.time.max() + 1))
-    ax.set_ylabel("Time (generations ago)")
+    ax.set_ylabel("Time ago (generations)")
     ax.spines["top"].set_visible(False)
     ax.spines["bottom"].set_visible(False)
     if title is not None:
@@ -473,7 +473,7 @@ def draw_pedigree(
         ax.set_yticks(np.arange(-maxtime, maxtime + 1, 2))
         ax.set_yticklabels(np.arange(maxtime + 1))
         ax.tick_params(labelleft=True)
-        ax.set_ylabel("Time (generations ago)")
+        ax.set_ylabel("Time ago (generations)")
     if title is not None:
         ax.set_title(title)
 
