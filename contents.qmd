@@ -103,7 +103,14 @@ You can access exercise content in several ways:
 3. you can access all online JupyterLite content by navigating to the
    file browser view (<https://ebp-nor.github.io/GARG/jlite/tree>) or
    the JupyterLab view (<https://ebp-nor.github.io/GARG/jlite/lab>)
-   
+
+::: {.callout-note}
+
+If you experience troubles reloading the JupyterLite pages, you can
+run the following notebook to reset:
+<https://ebp-nor.github.io/GARG/jlite/notebooks/?path=RESET.ipynb>
+
+:::
 
 :::{.contents-table .column-body-outset}
 
