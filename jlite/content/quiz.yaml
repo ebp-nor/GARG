@@ -190,7 +190,7 @@ Workbook1B:
           feedback: Correct.
         - type: value
           correct: true
-          value: 990000
+          value: 990000 
           feedback: Correct.
   mean_tmrca:
     - question: The mean TMRCA for n=2 samples is twice the population size. The root_time above measures the TMRCA for n=40 samples.
@@ -795,18 +795,57 @@ Workbook2A:
           correct: true
           feedback: Correct.
 
+
+Workbook2C:
+  fake:
+    - question: |
+        XXX?
+      type: many_choice
+      answers:
+        - answer: "YYY?"
+          correct: true
+
+
 Workbook2B:
   smc:
     - question: |
-        What is the Sequentially Markovian Coalescent (SMC) approximation?
+        In simulating the Coalescent with Recombination (CwR), the SMC approximation is often used.
+        What could you say about this approximation?
       type: many_choice
       answers:
-        - answer: "XXX"
-          correct: false
-        - answer: "YYY"
-          correct: false
-        - answer: "ZZZ"
+        - answer: "It is an approximation to the CwR process that speeds up simulations under high recombination rates / long chromosomes"
           correct: true
+        - answer: "It assumes that each tree is independent of the previous tree"
+          correct: false
+          feedback: |
+            No, it is *only* the previous tree on which the current tree is dependent (not the trees before that one).
+        - answer: |
+            SMC stands for "Sequentially Markovian Coalescent"
+          correct: true
+        - answer: "The SMC is a left-to-right (or right-to-left) algorithm"
+          correct: true
+        - answer: "The SMC only applies to inferring pairwise coalescent events"
+          correct: false
+          feedback: "No: in fact, you can simulate an entire ARG or tree sequence under the SMC"
+  hmm_psmc:
+    - question: |
+        With regard to the PSMC model:
+      type: many_choice
+      answers:
+        - answer: "The hidden state is the time to the most recent common ancestor (TMRCA) for a pair of haploid genomes"
+          correct: true
+        - answer: "The data need to be phased"
+          correct: false
+          feedback: |
+            No, unlike most (all?) ARG inference methods, the PSMC model is designed to work with unphased data.
+        - answer: "The hidden state is the time of recombination nodes in the ARG"
+          correct: false
+        - answer: "The hidden state is the size of each human subpopulation"
+          correct: false
+          feedback: |
+            Sometimes the TMRCA distribution is phrase in terms of an effective population size, but
+            the hidden state is the TMRCA itself, and population structure can also influence the
+            coalescent rate through time.
 
 Workbook2D:
   metadata:

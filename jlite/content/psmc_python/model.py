@@ -3,13 +3,14 @@ from numba import jit, njit
 from .utils import maxmul
 from scipy.optimize import minimize
 import json
-
+import datetime
 
 from tqdm.notebook import tqdm as tqdm_notebook
 from tqdm import tqdm as tqdm_terminal
 from IPython.display import clear_output
 
-
+def tqdm_null(*args, **kwargs):
+    return tqdm_terminal(*args, **kwargs, disable=True)
 
 @njit
 def rand_choice_nb(arr, prob):
@@ -54,6 +55,8 @@ class PSMC:
             self.tqdm = tqdm_notebook
         elif progress_bar == 'terminal':
             self.tqdm = tqdm_terminal
+        else:
+            self.tqdm = tqdm_null
 
         # store params of expectation step
         self.loglike_stored = None
@@ -505,7 +508,7 @@ class PSMC:
 
         return -q
     
-    def EM(self, params0, bounds, x, n_iter=20):
+    def EM(self, params0, bounds, x, n_iter=20, name=None):
         """
         Runs the EM algorithm to estimate the parameters of the model.
 
@@ -542,10 +545,13 @@ class PSMC:
         self.rho = params0[1]
         self.t_max = params0[2]
         params_history.append(params0)
-
+        name = "" if name is None else (" (" + name + ")")
         # Run the EM algorithm
+        starttime = None
         for i in range(n_iter):
-            print('EM iteration', i)
+            time = f" {datetime.datetime.now() - starttime}s" if starttime is not None else ""
+            starttime = datetime.datetime.now()
+            print(f"EM iteration {i}/{n_iter-1}{name}{time}", flush=True)
 
             # Recalculate model parameters
             self.param_recalculate()
@@ -589,9 +595,12 @@ class PSMC:
 
             # Print iteration status
             for e in range(i+1):
-                print('EM iteration', e)
-                print(loss_list[e][0], '-->', loss_list[e][1], '\tΔ:',  loss_list[e][0] - loss_list[e][1])
-        
+                print(
+                    f"{name} EM iteration {e}: ",
+                    f"{loss_list[e][0]} --> {loss_list[e][0]}",
+                    f"\tΔ: {loss_list[e][0] - loss_list[e][1]}",
+                    flush=True
+                )
         return loss_list, params_history
     
     

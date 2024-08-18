@@ -222,8 +222,35 @@ class Workbook2A(Workbook):
 
 
 class Workbook2B(Workbook):
+
     def __init__(self):
         super().__init__()
+
+    @staticmethod
+    def run_psmc(params):
+        from psmc_python.model import PSMC
+
+        data_file = params[0]
+        data = np.load(data_file)
+        n_iter = params[1] if len(params) > 1 else 10
+        start_window = params[2] if len(params) > 2 else 0
+        end_window = params[3] if len(params) > 3 else data.shape[1]
+        data = data[:, start_window: end_window]
+        print(f"Using {data.shape[1]} 100bp windows for PSMC inference of {data_file}", flush=True)
+        theta0 = np.sum(data) / (data.shape[0] * data.shape[1])
+        rho0 = theta0 / 5
+
+        psmc_model = PSMC(t_max=15, n_steps=64, pattern='1*4+25*2+1*4+1*6', progress_bar=None)
+        psmc_model.param_recalculate()
+
+        initial_params = [theta0, rho0, 15] + [1.] * (psmc_model.n_free_params - 3)
+        bounds = [(1e-4, 1e-1), (1e-5, 1e-1), (12, 20)] + [(0.1, 10)] * (psmc_model.n_free_params - 3)
+
+        name = data_file.replace(".npy", "")
+        loss_list, params_history = psmc_model.EM(initial_params, bounds, x=data, n_iter=n_iter, name=name)
+        psmc_model.save_params(name + ".json")
+        # Only choose e.g. 100_000 x 100bp windows. You can change this (or omit it) to include
+        # more of the genome in order to increase accuracy, but it will take longer to run
 
 
 class Workbook2C(Workbook):
