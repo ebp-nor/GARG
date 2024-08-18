@@ -116,7 +116,7 @@ Workbook1B:
           feedback: Correct
   expected_tmrca:
     - question: >-
-        What is the expected mean TMRCA value (given that the diploid population size N=10 above)?
+        What is the expected mean TMRCA value (given that the diploid population size Ne=10 above)?
       type: numeric
       answers:
         - type: value
