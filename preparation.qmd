@@ -7,7 +7,8 @@ execute:
 nocite: |
   @lewanski_EraARGIntroduction_2024,
   @wohns_UnifiedGenealogyModern_2022,
-  @stankowski_GeneticBasisRecent_2024, @_WhatTreeSequence_2024_
+  @stankowski_GeneticBasisRecent_2024, @_WhatTreeSequence_2024_,
+  @pritchard_OwnerGuideHuman_
 ---
 
 {{< include _rinit.qmd >}}
