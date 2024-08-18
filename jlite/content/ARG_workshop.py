@@ -25,7 +25,7 @@ path = os.path.dirname(os.path.normpath(__file__))
 
 
 def load_quiz(section):
-    with open(os.path.join(path, "quiz.yaml")) as fh:
+    with open(os.path.join(path, "quiz.yaml"), encoding="utf-8") as fh:
         try:
             quiz = yaml.safe_load(fh)
         except yaml.YAMLError as e:
@@ -98,7 +98,7 @@ class DownloadProgressBar(tqdm.tqdm):
 
 
 class Workbook:
-    styles = open(os.path.join(path, "styles/custom.css")).read()
+    styles = open(os.path.join(path, "styles/custom.css"), encoding="utf-8").read()
     css = f"<style>{styles}</style>"
     js = "<script src='https://d3js.org/d3.v7.min.js'></script>"
     # See https://github.com/jupyterlite/jupyterlite/issues/407#issuecomment-1353088447
