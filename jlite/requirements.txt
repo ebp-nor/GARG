@@ -44,6 +44,7 @@ plotly>=5,<6
 bqplot
 
 # Custom requirements
+tszip
 tskit
 msprime
 tsinfer==0.4.0a1
