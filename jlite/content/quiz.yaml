@@ -806,14 +806,33 @@ Workbook2A:
 
 
 Workbook2C:
-  fake:
+  num_trees:
     - question: |
-        XXX?
+        How many trees are there in the original tree sequence?
+      type: numeric
+      answers:
+        - value: 40238
+          correct: true
+    - question: |
+        How many trees are there in the inferred tree sequence?
+      type: numeric
+      answers:
+        - value: 33116
+          correct: true
+          feedback: This should be deterministic.
+  branchVsite:
+    - question: |
+        What are the time units set to in the tsinferred tree sequence?
       type: many_choice
       answers:
-        - answer: "YYY?"
+        - answer: "'uncalibrated'"
           correct: true
-
+        - answer: "'unknown'"
+          correct: false
+        - answer: "'generations'"
+          correct: false
+        - answer: "'years'"
+          correct: false
 
 Workbook2B:
   smc:
