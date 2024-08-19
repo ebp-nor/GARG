@@ -59,3 +59,4 @@ networkx
 pyyaml
 drawsvg
 scikit-allel
+stdpopsim==0.2.1a1
