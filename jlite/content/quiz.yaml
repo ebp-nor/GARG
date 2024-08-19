@@ -542,17 +542,23 @@ Workbook1E:
         What is the growth rate of the Utah population at the time of
         sampling (time 0)?
       type: numeric
-      answer: 0.004
+      answers:
+        - value: 0.004
+          correct: true
     - question: |
         What is the migration rate from the CHB to CEU population at
         the time of sampling (time 0)?
       type: numeric
-      answer: 1.9e-05
+      answers:
+        - value: 1.9e-05
+          correct: true
     - question: |
         What is the migration rate from the YRI to CEU population at
         time=1000 generations ago?
       type: numeric
-      answer: 0.00025
+      answers:
+        - value: 0.00025
+          correct: true
     - question: |
         What is the effect of the population parameter change at
         time=848 generations ago?
@@ -569,14 +575,13 @@ Workbook1E:
         How many segregating sites have been simulated?
       type: numeric
       answers:
-        - answer: 34482
+        - value: 34482
           correct: true
   divergence:
     - question: |
         Which of the following is true?
       type: many_choice
       answers:
-
         - answer: |
             The divergence between the European and the African
             population is higher than the divergence between the Out
@@ -637,12 +642,16 @@ Workbook1F:
         At what most recent time point is there a mass migration event
         between the western and central populations?
       type: numeric
-      answer: 4003
+      answers:
+        - value: 4003
+          correct: true
     - question: |
         At what most recent time point is there a mass migration event
         between the western and central populations?
       type: numeric
-      answer: 6202
+      answers:
+        - value: 6202
+          correct: true
   neutral_locus:
     - question: |
         The populations roughly form three groups. What is true
