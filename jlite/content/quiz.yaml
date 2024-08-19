@@ -543,21 +543,21 @@ Workbook1E:
         sampling (time 0)?
       type: numeric
       answers:
-        - answer: 0.004
+        - value: 0.004
           correct: true
     - question: |
         What is the migration rate from the CHB to CEU population at
         the time of sampling (time 0)?
       type: numeric
       answers:
-        - answer: 1.9e-05
+        - value: 1.9e-05
           correct: true
     - question: |
         What is the migration rate from the YRI to CEU population at
         time=1000 generations ago?
       type: numeric
       answers:
-        - answer: 0.00025
+        - value: 0.00025
           correct: true
     - question: |
         What is the effect of the population parameter change at
@@ -575,7 +575,7 @@ Workbook1E:
         How many segregating sites have been simulated?
       type: numeric
       answers:
-        - answer: 34482
+        - value: 34482
           correct: true
   divergence:
     - question: |
@@ -643,14 +643,14 @@ Workbook1F:
         between the western and central populations?
       type: numeric
       answers:
-        - answer: 4003
+        - value: 4003
           correct: true
     - question: |
         At what most recent time point is there a mass migration event
         between the western and central populations?
       type: numeric
       answers:
-        - answer: 6202
+        - value: 6202
           correct: true
   neutral_locus:
     - question: |
