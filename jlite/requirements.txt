@@ -61,4 +61,5 @@ drawsvg
 scikit-allel
 biopython
 bio2zarr
+pysam
 stdpopsim==0.2.1a1
