@@ -811,13 +811,13 @@ Workbook2C:
         How many trees are there in the original tree sequence?
       type: numeric
       answers:
-        - value: 40238
+        - value: 33116
           correct: true
     - question: |
         How many trees are there in the inferred tree sequence?
       type: numeric
       answers:
-        - value: 33116
+        - value: 40238
           correct: true
           feedback: This should be deterministic.
   branchVsite:
