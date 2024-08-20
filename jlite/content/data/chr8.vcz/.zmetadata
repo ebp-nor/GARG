@@ -1,0 +1,453 @@
+{
+    "metadata": {
+        ".zattrs": {
+            "source": "bio2zarr-0.1.1",
+            "vcf_header": "##fileformat=VCFv4.2\n##FILTER=<ID=PASS,Description=\"All filters passed\">\n##fileDate=01/06/2024 - 00:09:05\n##source=SHAPEIT5 phase_common 1.1\n##contig=<ID=chr8>\n##INFO=<ID=AC,Number=A,Type=Integer,Description=\"ALT allele count\">\n##INFO=<ID=AN,Number=1,Type=Integer,Description=\"Number of alleles\">\n##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Phased genotypes\">\n##bcftools_viewVersion=1.15.1+htslib-1.15.1\n##bcftools_viewCommand=view -O b -o chr8.subset.bcf phased_vcfs_100624/chr8_phased_renamed.bcf chr8:18700000-19700000; Date=Wed Aug 14 20:25:27 2024\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tPDOM2013AUS0029U_01-78565\tPIAG2014CPV0001F_01-Sp3\tPIAG2014CPV0003M_02-RBB02\tPIAG2014CPV0002M_02-Sp4\tPDOM2013AUS0030U_03-78832\tPHIS2014CPV0063M_03-Sp5\tPHIS2014CPV0064M_04-Sp6\tPDOM2013AUS0031U_07-46265\tPDOM2013AUS0032U_10-78830\tPIAG2014CPV0006F_11-RBC12\tPIAG2014CPV0009F_12-RBC07\tPIAG2014CPV0012F_13-RBC13\tPIAG2014CPV0015M_16-RBC04\tPIAG2014CPV0018F_17-RBB05\tPDOM2013AUS0033U_18-46646\tPDOM2012NOR0001F_180bp\tPDOM2013AUS0034U_19-78533\tPIAG2014CPV0021F_21-RBB06\tPIAG2014CPV0024M_23-RBC02\tPDOM2013AUS0035U_24-46650\tPIAG2014CPV0027M_25-RBC08\tPIAG2014CPV0030M_26-RBC09\tPDOM2013AUS0036U_27-78634\tPDOM2017GRC0001M_29-B8502\tPIAG2014CPV0033M_31-RBB07\tPIAG2014CPV0036F_32-RBC01\tPITAITA0000_33-LS757\tPITAITA0000_34-LS874\tPDOM2013AUS0037U_35-46268\tPITAITA0000_35-SD1901\tPITAITA0000_36-LS759\tPIAG2014CPV0039M_36-RBC16\tPITAITA0000_37-LS890\tPITAITA0000_38-SD1902\tPITAITA0000_39-LS762\tPITAITA0000_40-LS899\tPITAITA0000_41-SD1904\tPITAITA0000_42-LS769\tPITAITA0000_43-LS905\tPITAITA0000_430\tPITAITA0000_44-SD1905\tPITAITA0000_45-LS776\tPITAITA0000_46-LS906\tPITAITA0000_47-SD1906\tPITAITA0000_48-LS778\tPITAITA0000_49-LS915\tPITAITA0000_50-SD1907\tPITAITA0000_51-LS782\tPITAITA0000_52-LS916\tPITAITA0000_53-SD1908\tPITAITA0000_54-LS793\tPITAITA0000_55-LS917\tPITAITA0000_56-SD1909\tPITAITA0000_57-LS795\tPITAITA0000_58-LS929\tPITAITA0000_59-SD1910\tPMON2012FRA0001U_5PMCos\tPITAITA0000_60-LS817\tPITAITA0000_61-LS948\tPITAITA0000_62-SD1913\tPITAITA0000_63-LS818\tPITAITA0000_64-LS961\tPITAITA0000_65-SD1914\tPITAITA0000_66-LS819\tPITAITA0000_67-LS965\tPITAITA0000_68-LS820\tPITAITA0000_69-LS973\tPITAITA0000_70-SD1919\tPITAITA0000_71-LS821\tPITAITA0000_72-LS987\tPITAITA0000_73-SD1920\tPITAITA0000_74-LS829\tPDOM2012NOR0004M_8934547\tPDOM2012NOR0017F_8L19747\tPDOM2012NOR0005F_8L19766\tPDOM2012NOR0002M_8L19786\tPDOM2012NOR0018F_8L19791\tPDOM2012NOR0019F_8L48304\tPDOM2012NOR0020F_8L52105\tPDOM2012NOR0031M_8L52141\tPDOM2012NOR0021F_8L52815\tPDOM2012NOR0006M_8L52830\tPDOM2012NOR0022F_8L57906\tPDOM2012NOR0023F_8L64093\tPDOM2012NOR0009M_8L64869\tPDOM2012NOR0007M_8L89915\tPDOM2012NOR0008M_8M31651\tPDOM2012NOR0024F_8M71910\tPDOM2012NOR0010M_8M71932\tPDOM2012NOR0011M_8M72455\tPDOM2012NOR0025F_8M72456\tPDOM2012NOR0026F_8N05101\tPDOM2012NOR0027F_8N05169\tPDOM2012NOR0013M_8N05240\tPDOM2012NOR0028F_8N05268\tPDOM2012NOR0012M_8N05890\tPDOM2012NOR0014M_8N06612\tPDOM2012NOR0015M_8N06634\tPDOM2012NOR0029M_8N73248\tPDOM2012NOR0030F_8N73249\tPDOM2012NOR0016M_8N73604\tPDOM2014CHE0001M_A241\tPDOM2014CHE0002M_A244\tPDOM2014CHE0003M_A245\tPDOM2014CHE0004M_A246\tPDOM2014CHE0005M_A249\tPDOM2014CHE0006M_A253\tPDOM2014CHE0007M_A254\tPDOM2014CHE0008M_A255\tPDOM2014CHE0009M_A256\tPDOM2014CHE0010M_A352\tPDOM2014CHE0011M_A353\tPDOM2014CHE0012M_A354\tPDOM2014CHE0013M_A356\tPDOM2014CHE0014M_A360\tPDOM2014CHE0015M_A362\tPDOM2014CHE0016M_A363\tPDOM2014CHE0017M_A365\tPDOM2017GRC0002M_B116548\tPDOM2017GRC0003M_B119381\tPDOM2017CYP0001M_B7802\tPIAG2014CPV0042M_BOA01-1\tPIAG2014CPV0043M_BOA03-1\tPIAG2014CPV0044M_BV04-2\tPIAG2014CPV0045M_BVA27-1\tPITAITA0000_C060\tPITAITA0000_C065\tPITAITA0000_C067\tPITAITA0000_C068\tPITAITA0000_C080\tPITAITA0000_C081\tPITAITA0000_C088\tPITAITA0000_C090\tPITAITA0000_C094\tPDOM2012CZE0001U_CRH35-2\tPDOM2012CZE0002U_CRH41-1\tPDOM2012CZE0003U_CRH42-1\tPDOM2012CZE0004U_CRH519-2_mos_std\tPDOM2012CZE0005U_CRH566-1\tPDOM2012CZE0006U_CRH572-1\tPDOM2012CZE0007U_CRH923-1\tPDOM2012CZE0008U_CRH931-2\tPDOM2012CZE0009U_CRH941-2\tPHIS2016ESP0005F_CSP03_161116\tPHIS2016ESP0004J_CSP17_151116\tPHIS2016ESP0006M_CSP18_151116\tPHIS2016ESP0007M_CSP22_151116\tPHIS2016ESP0008F_CSP31_151116\tPHIS2016ESP0009M_CSP36_151116\tPHIS2016ESP0010F_CSP4_161116\tPHIS2016ESP0003F_CSP6_151116\tPHIS2016ESP0001F_CSP7_151116\tPHIS2016ESP0002F_CSP9_151116\tPHIS2012CPV0002M_CSV01\tPHIS2014CPV0001M_CV-BOA16-2\tPHIS2014CPV0002M_CV-BOA19-2\tPHIS2014CPV0003M_CV-SNI03-1\tPHIS2014CPV0004M_CV-SNI04-1\tPHIS2014CPV0005M_CV-SNI09-1\tPHIS2014CPV0006M_CV-STG03-2\tPHIS2014CPV0007M_CV-STG05-1\tPHIS2014CPV0008M_CV-STG11-2\tPHIS2014CPV0009M_CV-STG16-2\tPHIS2014CPV0010M_CV-STG18-1\tPDOM2014CPV0001F_CVH02-1\tPDOM2014CPV0002M_CVH03-1\tPDOM2014CPV0003M_CVH05-1\tPDOM2014CPV0004M_CVH07-1\tPDOM2014CPV0005M_CVH09-1\tPDOM2014CPV0006M_CVH13-1\tPDOM2014CPV0007M_CVH15-2\tPDOM2014CPV0008M_CVH16-1\tPDOM2014CPV0009F_CVH17-2\tPHIS2012CPV0001M_CVS02\tPITA2012ITA0001M_Crotone498\tPITA2012ITA0002M_Crotone500\tPITA2012ITA0003M_Crotone501\tPITA2012ITA0004M_Crotone502\tPITA2012ITA0005M_Crotone505\tPITA2012ITA0006M_Crotone510\tPITA2012ITA0007M_Crotone512\tPITA2012ITA0008M_Crotone514\tPITA2012ITA0009M_Crotone517\tPITA2012ITA0010M_Crotone518\tPHIS2016TUN0001U_FAR01-2\tPHIS2016TUN0002U_FAR02-1\tPHIS2016TUN0003U_FAR03-2\tPHIS2016TUN0004U_FAR04-2\tPHIS2016TUN0005U_FAR05-2\tPHIS2016TUN0006U_FAR06-2\tPHIS2016TUN0007U_FAR07-2_mos_std\tPHIS2016TUN0008U_FAR08-2\tPHIS2016TUN0009U_FAR09-2\tPDOM2012FIN0001U_FIN240\tPDOM2012FIN0002U_FIN248\tPDOM2012FIN0003U_FIN30\tPDOM2013FRA0006M_FR041\tPDOM2013FRA0009M_FR044\tPDOM2013FRA0002M_FR046\tPDOM2013FRA0010M_FR048\tPDOM2013FRA0001M_FR049\tPDOM2013FRA0004M_FR050\tPDOM2013FRA0008M_FR051\tPDOM2013FRA0007M_FR061\tPDOM2013FRA0003M_FR063\tPDOM2013FRA0005M_FR064\tPITA2012ITA0011M_Guglionesi336\tPITA2012ITA0012M_Guglionesi426\tPITA2012ITA0013M_Guglionesi427\tPITA2012ITA0014M_Guglionesi428\tPITA2012ITA0015M_Guglionesi429\tPITA2012ITA0016M_Guglionesi431\tPITA2012ITA0017M_Guglionesi432\tPITA2012ITA0018M_Guglionesi433\tPITA2012ITA0019M_Guglionesi434\tPITA2012ITA0020M_Guglionesi435\tPDOM2016ISR0001F_HV04-1\tPDOM2016ISR0002M_HV05-1\tPDOM2016ISR0003M_HV06-1\tPDOM2016ISR0004M_HV10-1\tPDOM2016ISR0005F_HV12-1\tPDOM2016ISR0006F_HV14-1\tPDOM2016ISR0007M_HV15-1\tPDOM2016ISR0008M_HV24-1\tPITAITA0000_I124\tPITAITA0000_I130\tPITAITA0000_I133-2\tPITAITA0000_I137\tPITAITA0000_I141\tPITAITA0000_I142\tPITAITA0000_I154\tPITAITA0000_I180\tPITAITA0000_I189\tPITAITA0000_I233\tPITAITA0000_I257\tPHIS2012ITA0011M_I289\tPITAITA0000_I343\tPITAITA0000_I351\tPIAG2011CPV0001M_IAG01\tPIAG2011CPV0002M_IAG02\tPITAITA0000_K006\tPITAITA0000_K010\tPITAITA0000_K011\tPITAITA0000_K015\tPITAITA0000_K019\tPITAITA0000_K021\tPITAITA0000_K022\tPITAITA0000_K026\tPITAITA0000_K029\tPITAITA0000_K031\tPITAITA0000_K032\tPITAITA0000_K035\tPITAITA0000_K039\tPITAITA0000_K071\tPITAITA0000_K073\tPITAITA0000_K083\tPITAITA0000_K085\tPITAITA0000_K089\tPITAITA0000_K090\tPITAITA0000_K096\tPHIS2014KAZ0001M_KAZ14001\tPHIS2014KAZ0002M_KAZ14003\tPBAC2014KAZ0001M_KAZ14005\tPBAC2014KAZ0002M_KAZ14011\tPBAC2014KAZ0003M_KAZ14014\tPBAC2014KAZ0004M_KAZ14016\tPBAC2014KAZ0005M_KAZ14018\tPBAC2014KAZ0006M_KAZ14019\tPBAC2014KAZ0007M_KAZ14020\tPBAC2014KAZ0008M_KAZ14021\tPBAC2014KAZ0009M_KAZ14022\tPBAC2014KAZ0010M_KAZ14026\tPHIS2014KAZ0003M_KAZ14032\tPHIS2014KAZ0004M_KAZ14035\tPHIS2014KAZ0005M_KAZ14053\tPHIS2014KAZ0006M_KAZ14054\tPHIS2014KAZ0007M_KAZ14055\tPHIS2014KAZ0008M_KAZ14057\tPHIS2014KAZ0009M_KAZ14059\tPHIS2014KAZ0010M_KAZ14061\tPITAITA0000_LS123\tPITAITA0000_LS147\tPITAITA0000_LS160\tPITAITA0000_LS255\tPITAITA0000_LS277\tPITAITA0000_LS301\tPITAITA0000_LS34\tPITAITA0000_LS376\tPITAITA0000_LS397\tPITAITA0000_LS404\tPITAITA0000_LS417\tPITAITA0000_LS418\tPITAITA0000_LS419\tPITAITA0000_LS421\tPITAITA0000_LS450\tPITAITA0000_LS454\tPITAITA0000_LS458\tPITAITA0000_LS459\tPITAITA0000_LS474\tPITAITA0000_LS506\tPITAITA0000_LS54\tPITAITA0000_LS55\tPITAITA0000_LS584\tPITAITA0000_LS591\tPITAITA0000_LS592\tPITAITA0000_LS593\tPITAITA0000_LS60\tPITAITA0000_LS602\tPITAITA0000_LS603\tPITAITA0000_LS604\tPITAITA0000_LS619\tPITAITA0000_LS625\tPITAITA0000_LS655\tPITAITA0000_LS66\tPITAITA0000_LS723\tPITAITA0000_LS733\tPITAITA0000_LS734\tPITAITA0000_LS87\tPITAITA0000_LS91\tPDOM2012GBR0001F_LUNDY-F-02\tPDOM2012GBR0002F_LUNDY-F-07\tPDOM2012GBR0003F_LUNDY-F-21_mos_std\tPDOM2012GBR0004F_LUNDY-F-27\tPDOM2012GBR0005F_LUNDY-F-87\tPDOM2012GBR0006M_LUNDY-M-05\tPDOM2012GBR0007M_LUNDY-M-09\tPDOM2012GBR0008M_LUNDY-M-14\tPDOM2012GBR0009M_LUNDY-M-17\tPDOM2012GBR0010M_LUNDY-M-89\tPHIS2008ITA0001M_Lesina_280\tPHIS2008ITA0002M_Lesina_281\tPHIS2008ITA0003M_Lesina_282\tPHIS2008ITA0004M_Lesina_285\tPHIS2008ITA0005M_Lesina_286\tPHIS2008ITA0006M_Lesina_287\tPHIS2008ITA0007M_Lesina_288\tPHIS2008ITA0008M_Lesina_289\tPHIS2008ITA0009M_Lesina_292\tPHIS2008ITA0010M_Lesina_295\tPITA2014MLT0001M_M010\tPITA2014MLT0002M_M012\tPITA2014MLT0003M_M019\tPITA2014MLT0004M_M022\tPITA2014MLT0005M_M028\tPITA2014MLT0006M_M030\tPITA2014MLT0007M_M031\tPITA2014MLT0008M_M033\tPITA2014MLT0009M_M036\tPITA2014MLT0010M_M037\tPIAG2014CPV0046M_MAI06-1\tPIAG2014CPV0047M_MAI18-1\tPMON2012ITA0001U_N33\tPDOM2014SVN0001M_P0129-E1\tPDOM2014SVN0002M_P0131-E2\tPDOM2014SVN0003M_P0132-E2\tPDOM2014SVN0004M_P0133-E1_mos_std\tPDOM2014SVN0005M_P0135-E1\tPDOM2014SVN0006M_P0137-E1\tPDOM2014SVN0007M_P0139-E2\tPDOM2014SVN0008F_P0140-E1\tPDOM2014SVN0009F_P0141-E2\tPHIS2007ESP0001M_P0165-1\tPHIS2007ESP0002M_P0171-2\tPHIS2007ESP0003M_P0175-1\tPHIS2007ESP0004M_P0176-1\tPHIS2007ESP0005M_P0181-1\tPHIS2007ESP0006M_P0182-2\tPHIS2007ESP0007M_P0190-1\tPHIS2007ESP0008M_P0192-2\tPDOM2012NOR0031U_P0253-E2\tPDOM2012NOR0032U_P0267-E2\tPDOM2012NOR0033U_P0271-E2\tPDOM2012NOR0034U_P0272-E2\tPDOM2012NOR0035U_P0273-E2_mos_std\tPIAG2014CPV0048M_PI-SA-2-E2_mos_std\tPIAG2014CPV0049M_PI-SA-3-E1\tPIAG2014CPV0050M_PI-SA-5-E2\tPMON2014MLT0001U_PM001-Malta\tPMON2014MLT0002U_PM002-Malta\tPMON2013ITA0001U_PM003\tPMON2013ITA0002U_PM007\tPMON2013ITA0003U_PM2\tPMON2013ITA0004U_PM4\tPMON2013ITA0005U_PM5\tPMON2013ITA0006U_PM6\tPDOM2013NOR0001M_PO250\tPBAC2012IRN0001M_Pdomesticus_10_Golestan_109\tPBAC2012IRN0002M_Pdomesticus_2_Kardeh_1\tPBAC2012IRN0003M_Pdomesticus_3_Kardeh_2\tPBAC2012IRN0004M_Pdomesticus_4_Kardeh_4\tPBAC2012IRN0005M_Pdomesticus_5_Kardeh_7\tPBAC2012IRN0006M_Pdomesticus_6-Golestan_102\tPBAC2012IRN0007M_Pdomesticus_7_Goestan_103\tPBAC2012IRN0008M_Pdomesticus_8_Golestan_104\tPBAC2012IRN0009M_Pdomesticus_9_Golestan_105\tPIAG2014CPV0051F_RBB05-2\tPIAG2014CPV0052M_RBC06-2\tPIAG2014CPV0053M_RZ16-1\tPITA2010ITA0001M_Rimini_100\tPITA2010ITA0002M_Rimini_103\tPITA2010ITA0003M_Rimini_104\tPITA2010ITA0004M_Rimini_110\tPITA2010ITA0005M_Rimini_112\tPITA2010ITA0006M_Rimini_85\tPITA2010ITA0007M_Rimini_88\tPITA2010ITA0008M_Rimini_91\tPITA2010ITA0009M_Rimini_93\tPITA2010ITA0010M_Rimini_94\tPITAITA0000_S029\tPITAITA0000_S040\tPITAITA0000_S045\tPITAITA0000_S046\tPITAITA0000_S049\tPITAITA0000_S052\tPITAITA0000_S058\tPITAITA0000_S059\tPITAITA0000_S064\tPITAITA0000_S065\tPHIS2012ITA0001M_SA001\tPHIS2012ITA0002M_SA002\tPHIS2012ITA0003M_SA003\tPHIS2012ITA0004M_SA010\tPHIS2012ITA0005M_SA011\tPHIS2012ITA0006M_SA016\tPHIS2012ITA0007M_SA017\tPHIS2012ITA0008M_SA018\tPHIS2012ITA0009M_SA019\tPHIS2012ITA0010M_SA021\tPIAG2014CPV0054M_SAL08-1\tPITAITA0000_SD01\tPITAITA0000_SD02\tPITAITA0000_SD03\tPITAITA0000_SD04\tPITAITA0000_SD05\tPITAITA0000_SD06\tPITAITA0000_SD07\tPITAITA0000_SD09\tPITAITA0000_SD10\tPITAITA0000_SD11\tPITAITA0000_SD12\tPIAG2014CPV0055M_SNI05-1\tPIAG2014CPV0055M_SNI54-1\tPIAG2014CPV0057F_STA12-2\tPIAG2014CPV0058M_STA50-1\tPIAG2014CPV0059M_STG26-1\tPIAG2014CPV0060M_STG49-1\tPIAG2014CPV0061M_STL03-2\tPIAG2014CPV0062M_SV03-2\tPITAITA0000_TR03\tPDOM2016TUR0004U_TUR8\tPBIB2012IRN0001M_bib-ker-22\tPBIB2012IRN0002F_bib-ker-27\tPBIB2012IRN0003M_bib-ker-34\tPBIB2012IRN0004M_bib-ker-35\tPBIB2012IRN0005F_bib-ker-37\tPBIB2012IRN0006M_bib-ker-38_mos_std\tPBIB2012IRN0007M_bib-ker-41\tPBIB2012IRN0008M_bib-ker-42\tPBIB2012IRN0009F_bib-ker-43\tPBIB2012IRN0010M_bib-ker-47\tPHYR2012IRN0001M_hyr-maz-73\tPHYR2012IRN0002M_hyr-maz-77\tPHYR2012IRN0003F_hyr-maz-78-1in10\tPIND2012IRN0001M_ind-ban-51\tPIND2012IRN0002F_ind-ban-52\tPIND2012IRN0003M_ind-ban-56\tPIND2012IRN0004M_ind-ban-58\tPIND2012IRN0005M_ind-kho-66\tPIND2012IRN0006M_ind-kho-67\tPIND2012IRN0007M_ind-kho-68\tPIND2012IRN0008M_ind-kho-70\tPIND2012IRN0009M_ind-sis-71\tPIND2012IRN0010F_ind-sis-72\tPPER2012IRN0001F_per-teh-1sh\tPPER2012IRN0002M_per-teh-1t\tPPER2012IRN0003M_per-teh-2t_mos_std\tPPER2012IRN0004M_per-teh-3t\tPPER2012IRN0005M_per-teh-4t\tPPER2012IRN0006M_per-teh-5t\tPPER2012IRN0007M_per-teh-6t\tPPER2012IRN0008M_per-teh-7t\tPPER2012IRN0009M_per-teh-8t\tPPER2012IRN0010M_per-teh-9t\n",
+            "vcf_zarr_version": "0.2"
+        },
+        ".zgroup": {
+            "zarr_format": 2
+        },
+        "call_genotype/.zarray": {
+            "chunks": [
+                10000,
+                1000,
+                2
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 2
+            },
+            "dimension_separator": "/",
+            "dtype": "|i1",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686,
+                483,
+                2
+            ],
+            "zarr_format": 2
+        },
+        "call_genotype/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants",
+                "samples",
+                "ploidy"
+            ],
+            "description": ""
+        },
+        "call_genotype_mask/.zarray": {
+            "chunks": [
+                10000,
+                1000,
+                2
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 2
+            },
+            "dimension_separator": "/",
+            "dtype": "|b1",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686,
+                483,
+                2
+            ],
+            "zarr_format": 2
+        },
+        "call_genotype_mask/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants",
+                "samples",
+                "ploidy"
+            ],
+            "description": ""
+        },
+        "call_genotype_phased/.zarray": {
+            "chunks": [
+                10000,
+                1000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 2
+            },
+            "dimension_separator": "/",
+            "dtype": "|b1",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686,
+                483
+            ],
+            "zarr_format": 2
+        },
+        "call_genotype_phased/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants",
+                "samples"
+            ],
+            "description": ""
+        },
+        "contig_id/.zarray": {
+            "chunks": [
+                1
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "|O",
+            "fill_value": 0,
+            "filters": [
+                {
+                    "id": "vlen-utf8"
+                }
+            ],
+            "order": "C",
+            "shape": [
+                1
+            ],
+            "zarr_format": 2
+        },
+        "contig_id/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "contigs"
+            ]
+        },
+        "filter_id/.zarray": {
+            "chunks": [
+                1
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "|O",
+            "fill_value": 0,
+            "filters": [
+                {
+                    "id": "vlen-utf8"
+                }
+            ],
+            "order": "C",
+            "shape": [
+                1
+            ],
+            "zarr_format": 2
+        },
+        "filter_id/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "filters"
+            ]
+        },
+        "sample_id/.zarray": {
+            "chunks": [
+                1000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 1
+            },
+            "dtype": "|O",
+            "fill_value": 0,
+            "filters": [
+                {
+                    "id": "vlen-utf8"
+                }
+            ],
+            "order": "C",
+            "shape": [
+                483
+            ],
+            "zarr_format": 2
+        },
+        "sample_id/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "samples"
+            ]
+        },
+        "variant_AC/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "<i2",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_AC/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": "ALT allele count"
+        },
+        "variant_AN/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "<i2",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_AN/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": "Number of alleles"
+        },
+        "variant_allele/.zarray": {
+            "chunks": [
+                10000,
+                2
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "|O",
+            "fill_value": null,
+            "filters": [
+                {
+                    "id": "vlen-utf8"
+                }
+            ],
+            "order": "C",
+            "shape": [
+                122686,
+                2
+            ],
+            "zarr_format": 2
+        },
+        "variant_allele/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants",
+                "alleles"
+            ],
+            "description": ""
+        },
+        "variant_contig/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "|i1",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_contig/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": ""
+        },
+        "variant_filter/.zarray": {
+            "chunks": [
+                10000,
+                1
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 2
+            },
+            "dimension_separator": "/",
+            "dtype": "|b1",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686,
+                1
+            ],
+            "zarr_format": 2
+        },
+        "variant_filter/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants",
+                "filters"
+            ],
+            "description": ""
+        },
+        "variant_id/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "|O",
+            "fill_value": null,
+            "filters": [
+                {
+                    "id": "vlen-utf8"
+                }
+            ],
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_id/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": ""
+        },
+        "variant_id_mask/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 2
+            },
+            "dimension_separator": "/",
+            "dtype": "|b1",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_id_mask/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": ""
+        },
+        "variant_position/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "<i4",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_position/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": ""
+        },
+        "variant_quality/.zarray": {
+            "chunks": [
+                10000
+            ],
+            "compressor": {
+                "blocksize": 0,
+                "clevel": 7,
+                "cname": "zstd",
+                "id": "blosc",
+                "shuffle": 0
+            },
+            "dimension_separator": "/",
+            "dtype": "<f4",
+            "fill_value": null,
+            "filters": null,
+            "order": "C",
+            "shape": [
+                122686
+            ],
+            "zarr_format": 2
+        },
+        "variant_quality/.zattrs": {
+            "_ARRAY_DIMENSIONS": [
+                "variants"
+            ],
+            "description": ""
+        }
+    },
+    "zarr_consolidated_format": 1
+}
