@@ -47,14 +47,14 @@ bqplot
 tszip
 tskit
 msprime
-tsinfer==0.4.0a1
+tsinfer>=0.5.0
 tsdate>=0.2.1
-numpy<2
+numpy>=2
 demesdraw
 seaborn
-jupyterquiz==2.7.0a2  # to fix https://github.com/jmshea/jupyterquiz/issues/20
+jupyterquiz>=2.7.1
 jupyterlab-filesystem-access
-tskit_arg_visualizer>=0.0.2
+tskit_arg_visualizer>=0.1.2
 networkx
 pyyaml
 drawsvg
@@ -62,4 +62,4 @@ scikit-allel
 biopython
 bio2zarr
 pysam
-stdpopsim==0.2.1a1
+stdpopsim==0.3.0
